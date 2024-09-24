@@ -36,7 +36,13 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     permissions: ['contextMenus', 'storage'],
     host_permissions: ['http://*/*', 'https://*/*'],
     // optional_permissions: ['*://*/*'],
-    content_security_policy: {}
+    content_security_policy: {},
+    web_accessible_resources: [
+      {
+        resources: ['iframe/index.html'],
+        matches: ['http://*/*', 'https://*/*']
+      }
+    ]
   }
 
   if (IS_DEV) {

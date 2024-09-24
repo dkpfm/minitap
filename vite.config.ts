@@ -2,8 +2,8 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import Components from 'unplugin-vue-components/vite'
+// import IconsResolver from 'unplugin-icons/resolver'
+// import Components from 'unplugin-vue-components/vite'
 import WindiCSS from 'vite-plugin-windicss'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import windiConfig from './windi.config'
@@ -35,22 +35,23 @@ export default defineConfig(({ command }) => {
       rollupOptions: {
         input: {
           popup: r('src/popup/index.html'),
-          options: r('src/options/index.html')
+          options: r('src/options/index.html'),
+          iframe: r('src/iframe/index.html')
         }
       }
     },
     plugins: [
       Vue(),
 
-      Components({
-        dirs: [r('src/components')],
-        // auto import icons
-        resolvers: [
-          IconsResolver({
-            prefix: ''
-          })
-        ]
-      }),
+      // Components({
+      //   dirs: [r('src/components')],
+      //   // auto import icons
+      //   resolvers: [
+      //     IconsResolver({
+      //       prefix: ''
+      //     })
+      //   ]
+      // }),
 
       Icons(),
 

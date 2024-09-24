@@ -1,11 +1,11 @@
 <template>
   <main class="popup">
     <img src="/assets/logo.svg" class="logo" />
-    <button class="switch">
+    <button class="switch" @click="handleSwitchClick">
       <div class="icon">
         <IconPower />
       </div>
-      <div class="label">Start</div>
+      <div class="label">{{ isOn ? 'Stop' : 'Start' }}</div>
     </button>
 
     <!-- <button class="btn mt-2" @click="openOptionsPage">
@@ -23,9 +23,42 @@
 import IconPower from '~/components/icon/Power.vue'
 // import { storageDemo } from '~/logic/storage'
 
-function openOptionsPage() {
-  chrome.runtime.openOptionsPage()
+import browser from 'webextension-polyfill'
+import { sendMessage } from 'webext-bridge/popup'
+
+const isOn = ref(false)
+
+onMounted(async () => {
+  let tabs = await browser.tabs.query({
+    active: true,
+    currentWindow: true
+  })
+  const data = await sendMessage(
+    'REQUEST_CONTROLLER_STATUS',
+    {},
+    'content-script@' + tabs[0].id
+  )
+  isOn.value = data.isOn
+})
+
+async function handleSwitchClick() {
+  let tabs = await browser.tabs.query({
+    active: true,
+    currentWindow: true
+  })
+
+  const data = await sendMessage(
+    'SWITCH_CONTROLLER',
+    {},
+    'content-script@' + tabs[0].id
+  )
+  console.log(data)
+  isOn.value = data.isOn
 }
+
+// function openOptionsPage() {
+//   chrome.runtime.openOptionsPage()
+// }
 </script>
 
 <style lang="scss" scoped>
