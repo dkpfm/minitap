@@ -4,8 +4,9 @@
 
 <style lang="scss" scoped>
 .controller {
-  min-width: 200px;
+  min-width: 100%;
   height: 150px;
-  background: red;
+  background: #141415;
+  border-radius: 20px;
 }
 </style>
