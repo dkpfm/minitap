@@ -6,9 +6,9 @@ body,
   padding: 0;
 }
 
-html.dark {
-  background: #121212;
-}
+/* html.dark { */
+/* background: #121212; */
+/* } */
 
 .btn {
   @apply px-4 py-1 rounded-xl inline-block

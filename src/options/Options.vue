@@ -19,12 +19,11 @@
       bg="transparent"
       border="~ rounded gray-200 dark:gray-700"
       outline="none active:none"
-    >
-
-    <Footer />
+    />
 
     <div class="mt-4">
-      {{ $t('options.powered_by_vite') }} <pixelarticons-zap class="align-middle" />
+      {{ $t('options.powered_by_vite') }}
+      <pixelarticons-zap class="align-middle" />
     </div>
   </main>
 </template>

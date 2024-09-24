@@ -20,7 +20,7 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
 
     if (iframeRef) iframeRef.remove()
     iframeRef = new DOMParser().parseFromString(
-      `<iframe class="crx-iframe" allowtransparency="true" src="${src}" style="border-radius: 20px; color-scheme: auto; position: fixed; left:calc(50vw - 1200px/2); border:0; width:1200px; height: 150px; background: transparent;"></iframe>`,
+      `<iframe class="crx-iframe" allowtransparency="true" src="${src}" style="filter: drop-shadow(0px 1px 4px rgba(0,0,0,0.1)); border-radius: 20px; color-scheme: auto; position: fixed; left:calc(50vw - 1200px/2); top :calc(50vh - 150px/2); border:0; width:1200px; height: 150px; background: transparent;"></iframe>`,
       'text/html'
     ).body.firstElementChild
     if (iframeRef) {
