@@ -11,7 +11,7 @@ const state = {
   ])
 }
 const controllerStatePlugin = {
-  install(app, options) {
+  install(app) {
     app.provide('controllerState', state) // provide is used on the whole application
   }
 }
