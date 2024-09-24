@@ -1,12 +1,12 @@
 <template>
   <div class="channel-actions">
-    <button :class="{ active: mode === 0 }">
+    <button :class="{ active: mode === 0 }" @click="handleActionClick(0)">
       <div class="icon"><IconMetronome /></div>
     </button>
-    <button :class="{ active: mode === 1 }">
+    <button :class="{ active: mode === 1 }" @click="handleActionClick(1)">
       <div class="icon"><IconTap /></div>
     </button>
-    <button :class="{ active: mode === 2 }">
+    <button :class="{ active: mode === 2 }" @click="handleActionClick(2)">
       <div class="icon"><IconWave /></div>
     </button>
   </div>
@@ -22,6 +22,10 @@ const props = defineProps(['channelIndex'])
 
 const controllerState = inject('controllerState')
 const mode = computed(() => controllerState.channels[props.channelIndex].mode)
+
+function handleActionClick(mode) {
+  controllerState.channels[props.channelIndex].mode = mode
+}
 </script>
 
 <style lang="scss" scoped>

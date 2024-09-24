@@ -18,16 +18,26 @@
       <Actions :channelIndex="props.index" />
     </header>
     <div class="name">
-      <input type="text" value="" placeholder="No Name" />
+      <input type="text" :value="channelData.name" placeholder="No Name" />
     </div>
+    <div class="flex-fill"></div>
+    <main>
+      <Sequencer v-if="channelData.mode === 0" :channelIndex="props.index" />
+      <Tap v-if="channelData.mode === 1" :letter="props.options.key" />
+    </main>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, inject } from 'vue'
 import Actions from './ControllerChannelsItemActions.vue'
+import Sequencer from './ControllerChannelSequencer.vue'
+import Tap from './ControllerChannelTap.vue'
 
 const props = defineProps(['options', 'index', 'state'])
+
+const controllerState = inject('controllerState')
+const channelData = computed(() => controllerState.channels[props.index])
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +50,8 @@ const props = defineProps(['options', 'index', 'state'])
   border: 1px solid #303031;
   color: white;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
   --accent: #27c94c;
   --accent-faded: #27c94c22;
   > header {
