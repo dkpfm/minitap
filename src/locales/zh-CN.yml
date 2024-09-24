@@ -1,0 +1,13 @@
+common:
+  extension_name: Vitesse Chrome Extensionbutton
+button:
+  toggle_dark: 切换深色模式
+  toggle_langs: 切换语言
+popup:
+  desc: 弹窗页面
+  open_options: 打开选项页面
+  storage: 存储信息
+options:
+  desc: 选项页面
+  sync_storage: 同步 Storage 信息
+  powered_by_vite: 由 Vite 强力驱动

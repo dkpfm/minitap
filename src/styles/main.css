@@ -1,0 +1,18 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html.dark {
+  background: #121212;
+}
+
+.btn {
+  @apply px-4 py-1 rounded-xl inline-block
+    bg-white text-black cursor-pointer
+    hover:bg-white
+    disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50;
+}

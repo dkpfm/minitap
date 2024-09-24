@@ -1,0 +1,13 @@
+common:
+  extension_name: Vitesse Chrome Extensionbutton
+button:
+  toggle_dark: Toggle dark mode
+  toggle_langs: Change languages
+popup:
+  desc: This is the popup page
+  open_options: Open Options
+  storage: Storage
+options:
+  desc: This is the options page
+  sync_storage: Sync Storage Message
+  powered_by_vite: Powered By Vite
