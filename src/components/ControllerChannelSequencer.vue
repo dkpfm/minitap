@@ -5,7 +5,9 @@
         :class="{
           beat: true,
           active: !!beat,
-          highlight: activeBeat === rowIndex * 4 + beatIndex
+          highlight:
+            controllerClock.isPlaying.value &&
+            activeBeat === rowIndex * 4 + beatIndex
         }"
         v-for="(beat, beatIndex) in row"
         @click="handleClick({ rowIndex, beatIndex })"

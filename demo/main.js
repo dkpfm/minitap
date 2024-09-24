@@ -1,7 +1,7 @@
-import './style.css'
-
-import { createApp } from 'vue'
-import Controller from './../src/components/Controller.vue'
-
-const app = createApp(Controller)
-app.mount('#app')
+let beat = 0
+window.addEventListener('message', ({ data }) => {
+  if (data.name === 'mt-beat') {
+    document.body.style.background = beat % 2 === 0 ? '#bbb' : '#fff'
+    beat++
+  }
+})

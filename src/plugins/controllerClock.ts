@@ -1,6 +1,4 @@
-const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 const bpm = ref(120)
 const currentBeat = ref(0)
@@ -13,7 +11,6 @@ const start = () => {
   const tick = (timestamp) => {
     const deltaTime = timestamp - lastTimestamp
     const beatInterval = (60 / bpm.value) * 1000
-    // console.log(deltaTime)
 
     if (deltaTime >= beatInterval) {
       update()
@@ -34,6 +31,7 @@ const stop = () => {
 }
 
 const update = () => {
+  window.parent.postMessage({ name: 'mt-beat' }, '*')
   currentBeat.value = currentBeat.value + 1
 }
 
