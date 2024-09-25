@@ -1,0 +1,17 @@
+.mt-controller {
+  position: fixed;
+  display: flex;
+  align-items: center;
+}
+.mt-controller-grab {
+  cursor: grab;
+  width: 10px;
+  height: 10px;
+  background: #999;
+  position: absolute;
+  left: -15px;
+  &.right {
+    left: auto;
+    right: -15px;
+  }
+}

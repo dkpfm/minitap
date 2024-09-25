@@ -36,7 +36,8 @@ export default defineConfig(({ command }) => {
         input: {
           popup: r('src/popup/index.html'),
           options: r('src/options/index.html'),
-          iframe: r('src/iframe/index.html')
+          iframe: r('src/iframe/index.html'),
+          contentStyle: r('src/content/style.css')
         }
       }
     },
@@ -53,7 +54,7 @@ export default defineConfig(({ command }) => {
       //   ]
       // }),
 
-      Icons(),
+      // Icons(),
 
       // https://github.com/antfu/vite-plugin-windicss
       WindiCSS({

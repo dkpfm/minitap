@@ -39,7 +39,7 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     content_security_policy: {},
     web_accessible_resources: [
       {
-        resources: ['iframe/index.html'],
+        resources: ['iframe/index.html', 'content/style.css'],
         matches: ['http://*/*', 'https://*/*']
       }
     ]
