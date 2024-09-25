@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "demo2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,10 +8,15 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^5.4.1"
-  },
   "dependencies": {
-    "@vitejs/plugin-vue": "^5.1.4"
+    "@tresjs/core": "^4.2.10",
+    "matter-js": "^0.20.0",
+    "three": "^0.168.0",
+    "underscore": "^1.13.7",
+    "vue": "^3.4.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "vite": "^5.4.1"
   }
 }
