@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 
 const bpm = ref(120)
 const currentBeat = ref(0)
@@ -6,6 +6,9 @@ const isPlaying = ref(false)
 const stepsPerBar = ref(4)
 let lastTimestamp = 0
 let animationFrameId = null
+let controllerState = null
+let onBeatListeners = []
+let onTickListeners = []
 
 const start = () => {
   const tick = (timestamp) => {
@@ -13,13 +16,15 @@ const start = () => {
     const beatInterval = (60 / bpm.value) * 1000
 
     if (deltaTime >= beatInterval) {
-      update()
+      onBeat()
       lastTimestamp = timestamp
     }
 
     if (isPlaying.value) {
       animationFrameId = requestAnimationFrame(tick)
     }
+
+    onTickListeners.forEach((cb) => cb())
   }
 
   lastTimestamp = performance.now()
@@ -30,31 +35,25 @@ const stop = () => {
   cancelAnimationFrame(animationFrameId)
 }
 
-const update = () => {
-  window.parent.postMessage({ name: 'mt-beat' }, '*')
+const onBeat = () => {
   currentBeat.value = currentBeat.value + 1
+  onBeatListeners.forEach((cb) => cb({ currentBeat: currentBeat.value }))
 }
 
 const toggle = () => {
   if (isPlaying.value) {
     stop()
   } else {
+    currentBeat.value = 0
     start()
   }
   isPlaying.value = !isPlaying.value
 }
 
-// onMounted(() => {
-//   startClock()
-// })
-
-// onUnmounted(() => {
-//   stopClock()
-// })
-
 const controllerClockPlugin = {
   install(app) {
-    app.provide('controllerClock', {
+    controllerState = app.config.globalProperties.controllerState
+    const controllerClock = {
       start,
       stop,
       toggle,
@@ -62,8 +61,22 @@ const controllerClockPlugin = {
       currentBeat,
       stepsPerBar,
       barBeat: computed(() => currentBeat.value % stepsPerBar.value),
-      isPlaying
-    }) // provide is used on the whole application
+      isPlaying,
+      listenOnBeat(cb) {
+        onBeatListeners.push(cb)
+      },
+      removeOnBeat(cb) {
+        onBeatListeners = onBeatListeners.filter((_cb) => _cb !== cb)
+      },
+      listenOnTick(cb) {
+        onTickListeners.push(cb)
+      },
+      removeOnTick(cb) {
+        onTickListeners = onTickListeners.filter((_cb) => _cb !== cb)
+      }
+    }
+    app.provide('controllerClock', controllerClock)
+    app.config.globalProperties.controllerClock = controllerClock
   }
 }
 

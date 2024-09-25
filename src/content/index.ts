@@ -9,6 +9,7 @@ onMessage('REQUEST_CONTROLLER_STATUS', async function ({ data }) {
 })
 
 let iframeRef = undefined
+let actualIframeRef = undefined
 let styleLink = undefined
 let handles = null
 
@@ -45,6 +46,14 @@ function dragEnd() {
   window.removeEventListener('mouseup', dragEnd)
 }
 
+function handleKeyDown({ key }) {
+  actualIframeRef.contentWindow.postMessage({ name: 'mt-key-down', key }, '*')
+}
+
+function handleKeyUp({ key }) {
+  actualIframeRef.contentWindow.postMessage({ name: 'mt-key-up', key }, '*')
+}
+
 onMessage('SWITCH_CONTROLLER', async function ({ data }) {
   if (!controllerIsOn) {
     const src = chrome.runtime.getURL('/iframe/index.html')
@@ -62,6 +71,8 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
     if (iframeRef) {
       document.body?.append(iframeRef)
     }
+
+    actualIframeRef = iframeRef?.querySelector('iframe')
 
     handles = iframeRef?.querySelectorAll('.mt-controller-grab')
     x = (innerWidth - 1200) / 2
@@ -85,9 +96,14 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
     document.body?.append(styleLink)
 
     controllerIsOn = true
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
   } else {
     iframeRef.remove()
     controllerIsOn = false
+    window.removeEventListener('keydown', handleKeyDown)
+    window.removeEventListener('keyup', handleKeyUp)
   }
 
   handles.forEach((h) => h.addEventListener('mousedown', dragStart))
