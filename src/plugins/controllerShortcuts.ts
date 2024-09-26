@@ -1,5 +1,6 @@
 import BpmGuesser from '~/utils/bpmGuesser'
 const chanelModeKeys = 'qweruiop'.split('')
+const chanelTriggerKeys = 'asdfhjkl'.split('')
 
 export default {
   install(app) {
@@ -15,6 +16,11 @@ export default {
         controllerClock.offsetTime(25)
       } else if (key === 'ArrowRight') {
         controllerClock.offsetTime(-25)
+      } else if (chanelTriggerKeys.includes(key.toLowerCase())) {
+        const index = chanelTriggerKeys.indexOf(key.toLowerCase())
+        if (controllerState.channels[index].mode === 1) {
+          controllerState.channels[index].tapDown = true
+        }
       }
     }
 
@@ -30,6 +36,11 @@ export default {
         controllerState.channels[index].mode =
           (controllerState.channels[index].mode + 1) % 4
         //
+      } else if (chanelTriggerKeys.includes(key.toLowerCase())) {
+        const index = chanelTriggerKeys.indexOf(key.toLowerCase())
+        if (controllerState.channels[index].mode === 1) {
+          controllerState.channels[index].tapDown = false
+        }
       }
     }
 

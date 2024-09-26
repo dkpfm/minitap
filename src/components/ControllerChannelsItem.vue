@@ -28,7 +28,11 @@
     <div class="flex-fill"></div>
     <main>
       <Sequencer v-if="channelData.mode === 0" :channelIndex="props.index" />
-      <Tap v-if="channelData.mode === 1" :letter="props.options.key" />
+      <Tap
+        v-if="channelData.mode === 1"
+        :channelIndex="props.index"
+        :letter="props.options.key"
+      />
     </main>
   </div>
 </template>
