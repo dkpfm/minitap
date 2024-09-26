@@ -2,6 +2,7 @@
   <div class="channel-sequencer">
     <div class="bar" v-for="(row, rowIndex) in rows">
       <button
+        tabindex="-1"
         :class="{
           beat: true,
           active: !!beat,

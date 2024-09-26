@@ -5,7 +5,7 @@ import { ref, computed, onMounted } from 'vue'
 import { Color } from 'three'
 
 const color = new Color()
-const hsl = [_.sample([0.6]), 0.4, 0.6]
+const hsl = [_.sample([0.2]), 0.6, 0.6]
 const colorHex = ref('#' + color.getHexString())
 
 onMounted(() => {

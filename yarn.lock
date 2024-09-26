@@ -3580,6 +3580,11 @@ radix-vue@^1.9.6:
     fast-deep-equal "^3.1.3"
     nanoid "^5.0.7"
 
+random-seedable@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/random-seedable/-/random-seedable-1.0.8.tgz#d233ce5d49f64a20be398bbc3faa695cc39b8aa8"
+  integrity sha512-f6gzvNhAnZBht1Prn0e/tpukUNhkANntFF42uIdWDPriyEATYaRpyH8A9bYaGecUB3AL+dXeYtBUggy18fe3rw==
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

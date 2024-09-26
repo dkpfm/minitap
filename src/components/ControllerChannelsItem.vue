@@ -19,6 +19,7 @@
     </header>
     <div class="name">
       <input
+        tabindex="-1"
         type="text"
         :value="channelData.name"
         placeholder="No Name"
@@ -33,6 +34,7 @@
         :channelIndex="props.index"
         :letter="props.options.key"
       />
+      <Random v-if="channelData.mode === 2" :channelIndex="props.index" />
     </main>
   </div>
 </template>
@@ -42,6 +44,7 @@ import { defineProps, inject } from 'vue'
 import Actions from './ControllerChannelsItemActions.vue'
 import Sequencer from './ControllerChannelSequencer.vue'
 import Tap from './ControllerChannelTap.vue'
+import Random from './ControllerChannelRandom.vue'
 
 const props = defineProps(['options', 'index', 'state'])
 
@@ -61,11 +64,15 @@ const channelData = computed(() => controllerState.channels[props.index])
   padding: 10px;
   display: flex;
   flex-direction: column;
+  position: relative;
   --accent: #27c94c;
   --accent-faded: #27c94c22;
   > header {
     display: flex;
     justify-content: space-between;
+  }
+  > main {
+    flex-grow: 0;
   }
 }
 .pill {

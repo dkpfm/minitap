@@ -24,6 +24,7 @@
     "gsap": "^3.12.5",
     "interactjs": "^1.10.27",
     "radix-vue": "^1.9.6",
+    "random-seedable": "^1.0.8",
     "tailwindcss": "^3.4.13",
     "underscore": "^1.13.7",
     "vite": "4.2.1",

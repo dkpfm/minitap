@@ -1,12 +1,24 @@
 <template>
   <div class="channel-actions">
-    <button :class="{ active: mode === 0 }" @click="handleActionClick(0)">
+    <button
+      tabindex="-1"
+      :class="{ active: mode === 0 }"
+      @click="handleActionClick(0)"
+    >
       <div class="icon"><IconMetronome /></div>
     </button>
-    <button :class="{ active: mode === 1 }" @click="handleActionClick(1)">
+    <button
+      tabindex="-1"
+      :class="{ active: mode === 1 }"
+      @click="handleActionClick(1)"
+    >
       <div class="icon"><IconTap /></div>
     </button>
-    <button :class="{ active: mode === 2 }" @click="handleActionClick(2)">
+    <button
+      tabindex="-1"
+      :class="{ active: mode === 2 }"
+      @click="handleActionClick(2)"
+    >
       <div class="icon"><IconWave /></div>
     </button>
   </div>
