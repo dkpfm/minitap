@@ -18,7 +18,10 @@
         <g id="Group-47" transform="translate(81, 679)">
           <g id="Group-4-Copy" transform="translate(100, 43.6448)">
             <g id="CD" transform="translate(4, 103)">
-              <g id="BG">
+              <g
+                id="BG"
+                style="transform: rotate(45deg); transform-origin: center"
+              >
                 <rect
                   fill="#000000"
                   x="0"

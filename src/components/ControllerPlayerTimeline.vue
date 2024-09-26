@@ -23,7 +23,7 @@
                 <g id="Timeline" transform="translate(0, 75)">
                   <rect
                     id="BG"
-                    fill="#3B84E3"
+                    fill="#000"
                     x="37"
                     y="0"
                     width="36"
