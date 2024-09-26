@@ -1,4 +1,6 @@
 import { watch, computed } from 'vue'
+import createRandomSequence from '~/utils/createRandomSequence'
+
 export default {
   install(app) {
     const controllerState = app.config.globalProperties.controllerState
@@ -27,6 +29,23 @@ export default {
         )
       }, 100)
     }
+
+    // STUFF THAT HAPPENS AT THE BEGINNING OF EACH SEQUENCE
+    let randomsState = []
+    controllerClock.listenOnSequence(() => {
+      window.parent.postMessage({ name: 'mt-sequence' }, '*')
+      randomsState = []
+      controllerState.channels.forEach((channelData, channelIndex) => {
+        if (channelData.mode === 2) {
+          randomsState[channelIndex] = createRandomSequence({
+            amount: channelData.random.amount,
+            seed: channelData.random.seed
+          })
+        }
+      })
+      console.log(randomsState)
+    })
+
     // STUFF THAT HAPPENS ON BEAT
     controllerClock.listenOnBeat(({ currentBeat, currentQuaver }) => {
       window.parent.postMessage({ name: 'mt-beat', currentBeat }, '*')

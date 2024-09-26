@@ -4,43 +4,71 @@ const state = {
       name: 'Kick',
       mode: 0,
       sequencer: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 4,
+        seed: 0
+      }
     },
     {
       name: 'Clap',
       mode: 0,
       sequencer: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 4,
+        seed: 1
+      }
     },
     {
       name: 'Ehh!',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 4,
+        seed: 2
+      }
     },
     {
       name: '',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 0,
+        seed: 0
+      }
     },
     {
       name: '',
       mode: 0,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 0,
+        seed: 0
+      }
     },
     {
       name: '',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 0,
+        seed: 0
+      }
     },
     {
       name: '',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false
+      tapDown: false,
+      random: {
+        amount: 0,
+        seed: 0
+      }
     },
     {
       name: 'Rand',
@@ -48,8 +76,8 @@ const state = {
       sequencer: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
-        amount: 0,
-        seed: 0
+        amount: 6,
+        seed: 1
       }
     }
   ])

@@ -1,17 +1,19 @@
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const bpm = ref(120)
 const currentBeat = ref(0)
 const currentQuaver = ref(0)
+const currentTime = ref(0)
+const currentSequence = computed(() => Math.floor(currentTime.value / 16))
 const isPlaying = ref(false)
 const stepsPerBar = ref(4)
-const currentTime = ref(0)
 let lastTimestamp = 0
 let startTime = 0
 let lastBeat = 0
 let animationFrameId = null
 let onBeatListeners = []
 let onTickListeners = []
+let onSequenceListeners = []
 
 const start = () => {
   const tick = () => {
@@ -54,6 +56,14 @@ const onBeat = () => {
   )
 }
 
+watch(
+  currentSequence,
+  (val) => {
+    onSequenceListeners.forEach((cb) => cb())
+  },
+  { immediate: true }
+)
+
 // const onBeat = () => {
 //   currentBeat.value = currentBeat.value + 1
 //   onBeatListeners.forEach((cb) => cb({ currentBeat: currentBeat.value }))
@@ -95,6 +105,12 @@ const controllerClockPlugin = {
       },
       removeOnTick(cb) {
         onTickListeners = onTickListeners.filter((_cb) => _cb !== cb)
+      },
+      listenOnSequence(cb) {
+        onSequenceListeners.push(cb)
+      },
+      removeOnSequence(cb) {
+        onSequenceListeners = onSequenceListeners.filter((_cb) => _cb !== cb)
       }
     }
     app.provide('controllerClock', controllerClock)

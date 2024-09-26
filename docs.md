@@ -3,8 +3,10 @@
 Global
 `mt-play`: when controller starts playing
 `mt-stop`: when controller stops playing
-`mt-beat`:
+`mt-beat`: at the beggining of each beat
   - currentBear: absolute current beat since last play
+`mt-seauence`: at the beggining of each sequence
+    - currentBear: absolute current beat since last play
 
 Channels
 `mt-channel-on`: when a channels note starts

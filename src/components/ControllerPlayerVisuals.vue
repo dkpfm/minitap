@@ -1,7 +1,7 @@
 <template>
   <div class="controller-player-visuals">
-    <ControllerPlayerTimeline />
     <ControllerPlayerCD />
+    <ControllerPlayerTimeline />
   </div>
 </template>
 
@@ -14,6 +14,6 @@ import ControllerPlayerTimeline from './ControllerPlayerTimeline.vue'
 .controller-player-visuals {
   background: black;
   border-radius: 20px;
-  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
