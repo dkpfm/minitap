@@ -18,7 +18,12 @@
       <Actions :channelIndex="props.index" />
     </header>
     <div class="name">
-      <input type="text" :value="channelData.name" placeholder="No Name" />
+      <input
+        type="text"
+        :value="channelData.name"
+        placeholder="No Name"
+        @keydown.stop=""
+      />
     </div>
     <div class="flex-fill"></div>
     <main>

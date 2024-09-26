@@ -5,6 +5,7 @@ const currentBeat = ref(0)
 const currentQuaver = ref(0)
 const isPlaying = ref(false)
 const stepsPerBar = ref(4)
+const currentTime = ref(0)
 let lastTimestamp = 0
 let startTime = 0
 let lastBeat = 0
@@ -16,7 +17,8 @@ const start = () => {
   const tick = () => {
     const timestamp = performance.now()
     const beatInterval = (60 / (bpm.value * 2)) * 1000
-    const beat = Math.floor((timestamp - startTime) / beatInterval)
+    currentTime.value = (timestamp - startTime) / beatInterval
+    const beat = Math.floor(currentTime.value)
     if (beat !== lastBeat) {
       onBeat()
       lastBeat = beat
@@ -45,7 +47,7 @@ const stop = () => {
 
 const onBeat = () => {
   currentQuaver.value = currentQuaver.value + 1
-  currentBeat.value = currentQuaver.value
+  currentBeat.value = Math.floor(currentQuaver.value / 2)
   // currentBeat.value = Math.floor(currentQuaver.value / 2)
   onBeatListeners.forEach((cb) =>
     cb({ currentBeat: currentBeat.value, currentQuaver: currentQuaver.value })
@@ -73,8 +75,12 @@ const controllerClockPlugin = {
       stop,
       toggle,
       bpm,
+      currentTime,
       currentBeat,
       currentQuaver,
+      offsetTime: (val = 1) => {
+        startTime += val
+      },
       stepsPerBar,
       barBeat: computed(() => currentBeat.value % stepsPerBar.value),
       isPlaying,

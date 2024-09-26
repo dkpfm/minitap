@@ -15,6 +15,7 @@ onBeforeRender(() => {
 
 <template>
   <TresGroup :scale="0.75" :rotation="[0, 0, rotation]">
+    <!-- <Circle :scale="[100, 100, 100]" /> -->
     <Circle
       :position="[circle.pos.x, circle.pos.y, 0]"
       :scale="[circle.scale, circle.scale, circle.scale]"

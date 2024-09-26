@@ -11,12 +11,16 @@
       </div>
     </button>
     <div class="flex-fill"></div>
+    <ControllerPlayerTimeline />
+    <ControllerPlayerCD />
   </div>
 </template>
 
 <script setup>
 import IconPlay from './icon/Play.vue'
 import IconPause from './icon/Pause.vue'
+import ControllerPlayerCD from './ControllerPlayerCD.vue'
+import ControllerPlayerTimeline from './ControllerPlayerTimeline.vue'
 
 const controllerClock = inject('controllerClock')
 function handlePlayClick() {
@@ -33,9 +37,10 @@ function handlePlayClick() {
   border: 1px solid #b8b8bd;
   display: flex;
   flex-direction: column;
-  padding: 8px 0;
+  padding: 8px 0 4px;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 }
 .pill {
   --accent: #3b84e3;

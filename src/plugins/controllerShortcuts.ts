@@ -6,7 +6,17 @@ export default {
     const controllerState = app.config.globalProperties.controllerState
     const controllerClock = app.config.globalProperties.controllerClock
 
-    function handleKeyDown(key) {}
+    function handleKeyDown(key) {
+      if (key === 'ArrowUp') {
+        controllerClock.bpm.value += 0.05
+      } else if (key === 'ArrowDown') {
+        controllerClock.bpm.value -= 0.05
+      } else if (key === 'ArrowLeft') {
+        controllerClock.offsetTime(25)
+      } else if (key === 'ArrowRight') {
+        controllerClock.offsetTime(-25)
+      }
+    }
 
     function handleKeyUp(key) {
       if (key === ' ') {
