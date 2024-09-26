@@ -52,8 +52,9 @@ async function handleSwitchClick() {
     {},
     'content-script@' + tabs[0].id
   )
-  console.log(data)
+  // console.log(data)
   isOn.value = data.isOn
+  window.close()
 }
 
 // function openOptionsPage() {
