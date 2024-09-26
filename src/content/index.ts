@@ -46,12 +46,18 @@ function dragEnd() {
   window.removeEventListener('mouseup', dragEnd)
 }
 
-function handleKeyDown({ key }) {
-  actualIframeRef.contentWindow.postMessage({ name: 'mt-key-down', key }, '*')
+function handleKeyDown({ key, shiftKey }) {
+  actualIframeRef.contentWindow.postMessage(
+    { name: 'mt-key-down', key, shiftKey },
+    '*'
+  )
 }
 
-function handleKeyUp({ key }) {
-  actualIframeRef.contentWindow.postMessage({ name: 'mt-key-up', key }, '*')
+function handleKeyUp({ key, shiftKey }) {
+  actualIframeRef.contentWindow.postMessage(
+    { name: 'mt-key-up', key, shiftKey },
+    '*'
+  )
 }
 
 onMessage('SWITCH_CONTROLLER', async function ({ data }) {

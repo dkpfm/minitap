@@ -11,6 +11,6 @@ const app = createApp(App)
 app
   .use(controllerState)
   .use(controllerClock)
-  .use(controllerShortcuts)
   .use(controllerOutput)
+  .use(controllerShortcuts)
   .mount('#controller-app')

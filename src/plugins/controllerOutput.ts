@@ -4,6 +4,29 @@ export default {
     const controllerState = app.config.globalProperties.controllerState
     const controllerClock = app.config.globalProperties.controllerClock
 
+    function triggerNote(channelIndex) {
+      window.parent.postMessage(
+        { name: 'mt-channel-on', channel: channelIndex },
+        '*'
+      )
+      window.parent.postMessage(
+        { name: `mt-channel${channelIndex}-on`, channel: channelIndex },
+        '*'
+      )
+      setTimeout(() => {
+        window.parent.postMessage(
+          { name: 'mt-channel-off', channel: channelIndex },
+          '*'
+        )
+        window.parent.postMessage(
+          {
+            name: `mt-channel${channelIndex}-off`,
+            channel: channelIndex
+          },
+          '*'
+        )
+      }, 100)
+    }
     // STUFF THAT HAPPENS ON BEAT
     controllerClock.listenOnBeat(({ currentBeat, currentQuaver }) => {
       window.parent.postMessage({ name: 'mt-beat', currentBeat }, '*')
@@ -12,27 +35,7 @@ export default {
           // SEQUENCER
           const beatIndex = currentQuaver % 16
           if (channelData.sequencer[beatIndex]) {
-            window.parent.postMessage(
-              { name: 'mt-channel-on', channel: channelIndex },
-              '*'
-            )
-            window.parent.postMessage(
-              { name: `mt-channel${channelIndex}-on`, channel: channelIndex },
-              '*'
-            )
-            setTimeout(() => {
-              window.parent.postMessage(
-                { name: 'mt-channel-off', channel: channelIndex },
-                '*'
-              )
-              window.parent.postMessage(
-                {
-                  name: `mt-channel${channelIndex}-off`,
-                  channel: channelIndex
-                },
-                '*'
-              )
-            }, 100)
+            triggerNote(channelIndex)
           }
         }
       })
@@ -65,5 +68,12 @@ export default {
         }
       })
     })
+
+    const controllerOutput = {
+      triggerNote
+    }
+
+    app.provide('controllerOutput', controllerOutput)
+    app.config.globalProperties.controllerOutput = controllerOutput
   }
 }
