@@ -5,15 +5,12 @@ import { useLoop } from '@tresjs/core'
 import Circle from './Circle.vue'
 
 const props = defineProps(['physics'])
-console.log(props.physics)
 
 const rotation = ref(0)
 const { onBeforeRender } = useLoop()
 onBeforeRender(() => {
-  rotation.value += 0.002
+  rotation.value += 0.001
 })
-// console.log(useLoop)
-// const physics = inject('physics')
 </script>
 
 <template>
