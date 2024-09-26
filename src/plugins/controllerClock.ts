@@ -33,8 +33,8 @@ const start = () => {
 
   lastTimestamp = performance.now()
   startTime = performance.now()
-  currentQuaver.value = 0
-  currentBeat.value = 0
+  currentQuaver.value = -1
+  currentBeat.value = -1
   tick()
   onBeatListeners.forEach((cb) =>
     cb({ currentBeat: currentBeat.value, currentQuaver: currentQuaver.value })
@@ -46,8 +46,8 @@ const stop = () => {
 }
 
 const onBeat = () => {
-  currentQuaver.value = currentQuaver.value + 1
-  currentBeat.value = Math.floor(currentQuaver.value / 2)
+  currentQuaver.value = Math.floor(currentTime.value)
+  currentBeat.value = Math.floor(currentTime.value / 2)
   // currentBeat.value = Math.floor(currentQuaver.value / 2)
   onBeatListeners.forEach((cb) =>
     cb({ currentBeat: currentBeat.value, currentQuaver: currentQuaver.value })
