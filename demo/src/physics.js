@@ -40,8 +40,8 @@ const circlesData = []
 function spawn({ remove = false } = {}) {
   const radius = 50 + Math.random() * 150
   const circ = Bodies.circle(
-    (Math.random() - 0.5) * 400,
-    (Math.random() - 0.5) * 400,
+    (Math.random() - 0.5) * 1200,
+    (Math.random() - 0.5) * 1200,
     radius
   )
   circ.frictionAir = 0.9
@@ -56,7 +56,7 @@ function spawn({ remove = false } = {}) {
     circlesData.shift()
   }
 }
-_.times(80, spawn)
+_.times(70, spawn)
 
 // run the renderer
 if (USE_RENDERER) {
@@ -74,8 +74,8 @@ const circlesState = ref([])
 function tick() {
   requestAnimationFrame(tick)
   circles.forEach((c) => {
-    force.x = -c.position.x * 0.0002
-    force.y = -c.position.y * 0.0002
+    force.x = -c.position.x * 0.0001
+    force.y = -c.position.y * 0.0001
     Matter.Body.applyForce(c, c.position, force)
   })
   circlesState.value = circles.map((c, i) => ({

@@ -1,23 +1,25 @@
-import { ref, inject } from 'vue'
+import { ref } from 'vue'
 
 const bpm = ref(120)
 const currentBeat = ref(0)
+const currentQuaver = ref(0)
 const isPlaying = ref(false)
 const stepsPerBar = ref(4)
 let lastTimestamp = 0
+let startTime = 0
+let lastBeat = 0
 let animationFrameId = null
-let controllerState = null
 let onBeatListeners = []
 let onTickListeners = []
 
 const start = () => {
-  const tick = (timestamp) => {
-    const deltaTime = timestamp - lastTimestamp
-    const beatInterval = (60 / bpm.value) * 1000
-
-    if (deltaTime >= beatInterval) {
+  const tick = () => {
+    const timestamp = performance.now()
+    const beatInterval = (60 / (bpm.value * 2)) * 1000
+    const beat = Math.floor((timestamp - startTime) / beatInterval)
+    if (beat !== lastBeat) {
       onBeat()
-      lastTimestamp = timestamp
+      lastBeat = beat
     }
 
     if (isPlaying.value) {
@@ -28,7 +30,13 @@ const start = () => {
   }
 
   lastTimestamp = performance.now()
-  animationFrameId = requestAnimationFrame(tick)
+  startTime = performance.now()
+  currentQuaver.value = 0
+  currentBeat.value = 0
+  tick()
+  onBeatListeners.forEach((cb) =>
+    cb({ currentBeat: currentBeat.value, currentQuaver: currentQuaver.value })
+  )
 }
 
 const stop = () => {
@@ -36,29 +44,37 @@ const stop = () => {
 }
 
 const onBeat = () => {
-  currentBeat.value = currentBeat.value + 1
-  onBeatListeners.forEach((cb) => cb({ currentBeat: currentBeat.value }))
+  currentQuaver.value = currentQuaver.value + 1
+  currentBeat.value = currentQuaver.value
+  // currentBeat.value = Math.floor(currentQuaver.value / 2)
+  onBeatListeners.forEach((cb) =>
+    cb({ currentBeat: currentBeat.value, currentQuaver: currentQuaver.value })
+  )
 }
 
+// const onBeat = () => {
+//   currentBeat.value = currentBeat.value + 1
+//   onBeatListeners.forEach((cb) => cb({ currentBeat: currentBeat.value }))
+// }
+
 const toggle = () => {
-  if (isPlaying.value) {
-    stop()
-  } else {
-    currentBeat.value = 0
-    start()
-  }
   isPlaying.value = !isPlaying.value
+  if (isPlaying.value) {
+    start()
+  } else {
+    stop()
+  }
 }
 
 const controllerClockPlugin = {
   install(app) {
-    controllerState = app.config.globalProperties.controllerState
     const controllerClock = {
       start,
       stop,
       toggle,
       bpm,
       currentBeat,
+      currentQuaver,
       stepsPerBar,
       barBeat: computed(() => currentBeat.value % stepsPerBar.value),
       isPlaying,

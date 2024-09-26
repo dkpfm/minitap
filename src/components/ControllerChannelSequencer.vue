@@ -7,7 +7,7 @@
           active: !!beat,
           highlight:
             controllerClock.isPlaying.value &&
-            activeBeat === rowIndex * 4 + beatIndex
+            activeBeat === rowIndex * 8 + beatIndex
         }"
         v-for="(beat, beatIndex) in row"
         @click="handleClick({ rowIndex, beatIndex })"
@@ -26,19 +26,19 @@ const controllerState = inject('controllerState')
 const beats = computed(
   () => controllerState.channels[props.channelIndex].sequencer
 )
-const rows = computed(() => _.chunk(beats.value, 4))
+const rows = computed(() => _.chunk(beats.value, 8))
 
 function handleClick({ rowIndex, beatIndex }) {
   controllerState.channels[props.channelIndex].sequencer[
-    rowIndex * 4 + beatIndex
+    rowIndex * 8 + beatIndex
   ] =
     !controllerState.channels[props.channelIndex].sequencer[
-      rowIndex * 4 + beatIndex
+      rowIndex * 8 + beatIndex
     ]
 }
 
 const controllerClock = inject('controllerClock')
-const activeBeat = computed(() => controllerClock.currentBeat.value % 8)
+const activeBeat = computed(() => controllerClock.currentQuaver.value % 16)
 </script>
 
 <style lang="scss" scoped>

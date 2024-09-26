@@ -7,7 +7,7 @@
         />
       </div>
       <div class="label">
-        {{ controllerClock.isPlaying.value ? 'Pause' : 'Play' }}
+        {{ controllerClock.isPlaying.value ? 'Stop' : 'Play' }}
       </div>
     </button>
     <div class="flex-fill"></div>

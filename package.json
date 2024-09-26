@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
+    "gsap": "^3.12.5",
     "interactjs": "^1.10.27",
     "radix-vue": "^1.9.6",
     "tailwindcss": "^3.4.13",

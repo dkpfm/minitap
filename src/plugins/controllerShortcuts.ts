@@ -1,3 +1,4 @@
+import BpmGuesser from '~/utils/bpmGuesser'
 const chanelModeKeys = 'qweruiop'.split('')
 
 export default {
@@ -10,6 +11,10 @@ export default {
     function handleKeyUp(key) {
       if (key === ' ') {
         controllerClock.toggle()
+      } else if (key === 'Enter') {
+        const bpm = BpmGuesser.guess()
+        // console.log(bpm)
+        if (bpm) controllerClock.bpm.value = bpm
       } else if (chanelModeKeys.includes(key.toLowerCase())) {
         const index = chanelModeKeys.indexOf(key.toLowerCase())
         controllerState.channels[index].mode =

@@ -5,7 +5,9 @@
         :style="`transform: scaleX(${controllerClock.currentBeat.value % 2 === 0 ? -1 : 1})`"
       />
     </div>
-    <div class="bpm">120<small>BPM</small></div>
+    <div class="bpm">
+      {{ Math.round(controllerClock.bpm.value) }}<small>BPM</small>
+    </div>
     <div class="flex-fill"></div>
     <div class="beat">{{ controllerClock.barBeat.value + 1 }}/4</div>
     <button class="circle-button">
