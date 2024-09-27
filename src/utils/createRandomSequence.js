@@ -3,9 +3,9 @@ import _ from 'underscore'
 
 export default function createRandomSequence({ amount = 1, seed = 0 } = {}) {
   const random = new SeededRandom(seed)
-  const numbers = _.range(amount).map((i) => random.range(0, 15))
+  const numbers = _.range(amount).map((i) => random.range(0, 16))
+  // return [0, 4, 8, 12]
   return _.sortBy(numbers, (n) => n)
-  return numbers
 }
 
 class SeededRandom {
@@ -44,6 +44,6 @@ class SeededRandom {
   }
 
   range(min, max) {
-    return this.float() * (max - min + 1) + min
+    return this.float() * (max - min) + min
   }
 }

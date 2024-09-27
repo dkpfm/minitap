@@ -1,14 +1,22 @@
 <template>
   <div class="channel-random">
     <div class="slider">
-      <input type="range" />
+      <div class="label" :style="`transform: translateX(${labelX}px)`">
+        {{ controllerState.channels[channelIndex].random.amount }}
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="24"
+        v-model="controllerState.channels[channelIndex].random.amount"
+      />
     </div>
     <div class="radar">
       <RadarBg />
       <div class="radar-points">
         <div
-          class="point"
-          v-for="point in points"
+          :class="{ point: true, active: pointsState[index] }"
+          v-for="(point, index) in points"
           :style="`transform: translate(${point.x}px, ${point.y}px)`"
         ></div>
       </div>
@@ -23,11 +31,49 @@
 import RadarBg from './ControllerChannelRandomRadarBg.vue'
 import createRandomSequence from '~/utils/createRandomSequence'
 
-const points = createRandomSequence({ amount: 10 }).map((p, index) => {
-  const r = 8 + 10 * (Math.sin(index * 2323.32982) + 1)
-  const a = p / 2
-  return { x: r * Math.cos(a), y: r * Math.sin(a) }
+const props = defineProps(['channelIndex'])
+
+const pointsState = ref([])
+
+onMounted(() => {
+  window.addEventListener('message', ({ data }) => {
+    if (
+      data.name === 'mt-internal-rand-trigger' &&
+      data.channel === props.channelIndex
+    ) {
+      pointsState.value[data.randIndex] = true
+      setTimeout(() => {
+        pointsState.value[data.randIndex] = false
+      }, 300)
+    }
+  })
 })
+const controllerState = inject('controllerState')
+const points = computed(() => {
+  const randData = controllerState.channels[props.channelIndex].random
+  return createRandomSequence({
+    amount: randData.amount,
+    seed: randData.seed
+  }).map((p, index) => {
+    const r = 8 + 10 * (Math.sin(index * 2323.32982) + 1)
+    // const r = 16
+    const a = (p / 16) * (Math.PI * 2) - Math.PI / 2
+    return { x: r * Math.cos(a), y: r * Math.sin(a) }
+  })
+})
+
+watch(
+  () => controllerState.channels[props.channelIndex].random.amount,
+  () => {
+    controllerState.channels[props.channelIndex].random.seed = Math.round(
+      Math.random() * 64
+    )
+  }
+)
+
+const labelX = computed(
+  () => (controllerState.channels[props.channelIndex].random.amount / 24) * 28
+)
 
 const controllerClock = inject('controllerClock')
 const rotation = computed(() => (controllerClock.currentTime.value / 16) * 360)
@@ -36,9 +82,7 @@ const rotation = computed(() => (controllerClock.currentTime.value / 16) * 360)
 <style lang="scss" scoped>
 .channel-random {
   display: flex;
-  /* flex-direction: column; */
   gap: 3px;
-  /* background: rgba(red, 0.5); */
   height: fit-content;
   bottom: 0;
   left: 0;
@@ -53,7 +97,6 @@ const rotation = computed(() => (controllerClock.currentTime.value / 16) * 360)
     width: 86px;
     height: 86px;
     position: absolute;
-    /* background: red; */
     top: 0;
     right: 0;
     .radar-cursor-line {
@@ -83,6 +126,9 @@ const rotation = computed(() => (controllerClock.currentTime.value / 16) * 360)
       position: absolute;
       left: 50%;
       top: 50%;
+      &.active {
+        background: white;
+      }
     }
   }
 
@@ -90,7 +136,16 @@ const rotation = computed(() => (controllerClock.currentTime.value / 16) * 360)
     display: flex;
     justify-content: center;
     pointer-events: all;
-    margin-top: 47px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+
+    .label {
+      display: flex;
+      font-size: 8px;
+      font-weight: bold;
+    }
+
     input[type='range'] {
       display: block;
       -webkit-appearance: none;

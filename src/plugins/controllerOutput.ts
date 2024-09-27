@@ -31,19 +31,23 @@ export default {
     }
 
     // STUFF THAT HAPPENS AT THE BEGINNING OF EACH SEQUENCE
-    let randomsState = []
+    let randomsState = null
+    function updateRandomState() {
+      randomsState = []
+
+      controllerState.channels.forEach((channelData, channelIndex) => {
+        randomsState[channelIndex] = createRandomSequence({
+          amount: channelData.random.amount,
+          seed: channelData.random.seed
+        }).map((v) => ({
+          time: v,
+          done: false /* this should take into account current time */
+        }))
+      })
+    }
     controllerClock.listenOnSequence(() => {
       window.parent.postMessage({ name: 'mt-sequence' }, '*')
-      randomsState = []
-      controllerState.channels.forEach((channelData, channelIndex) => {
-        if (channelData.mode === 2) {
-          randomsState[channelIndex] = createRandomSequence({
-            amount: channelData.random.amount,
-            seed: channelData.random.seed
-          })
-        }
-      })
-      console.log(randomsState)
+      updateRandomState()
     })
 
     // STUFF THAT HAPPENS ON BEAT
@@ -56,6 +60,31 @@ export default {
           if (channelData.sequencer[beatIndex]) {
             triggerNote(channelIndex)
           }
+        }
+      })
+    })
+
+    // STUFF THAT HAPPENS ON EACH FRAME
+    controllerClock.listenOnTick(({ currentTime }) => {
+      controllerState.channels.forEach((channelData, channelIndex) => {
+        // Update randoms
+        if (randomsState) {
+          randomsState[channelIndex].forEach((rand, index) => {
+            if (rand.time <= currentTime % 16 && !rand.done) {
+              rand.done = true
+              if (channelData.mode === 2) {
+                triggerNote(channelIndex)
+                window.postMessage(
+                  {
+                    name: 'mt-internal-rand-trigger',
+                    channel: channelIndex,
+                    randIndex: index
+                  },
+                  '*'
+                )
+              }
+            }
+          })
         }
       })
     })
@@ -87,6 +116,18 @@ export default {
         }
       })
     })
+
+    const randoms = computed(() =>
+      controllerState.channels.map((c) => c.random)
+    )
+    watch(
+      randoms,
+      () => {
+        // could update only the changed channel for better perf
+        updateRandomState()
+      },
+      { immediate: true }
+    )
 
     const controllerOutput = {
       triggerNote

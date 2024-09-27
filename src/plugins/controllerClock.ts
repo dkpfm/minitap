@@ -30,7 +30,7 @@ const start = () => {
       animationFrameId = requestAnimationFrame(tick)
     }
 
-    onTickListeners.forEach((cb) => cb())
+    onTickListeners.forEach((cb) => cb({ currentTime: currentTime.value }))
   }
 
   lastTimestamp = performance.now()

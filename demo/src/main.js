@@ -7,7 +7,6 @@ import physics from './physics'
 createApp(App)
   .use({
     install(app) {
-      console.log('HELLO')
       app.provide('physics', physics)
     }
   })

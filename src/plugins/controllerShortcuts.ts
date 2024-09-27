@@ -24,8 +24,23 @@ export default {
       } else if (chanelTriggerKeys.includes(key.toLowerCase())) {
         const index = chanelTriggerKeys.indexOf(key.toLowerCase())
         if (controllerState.channels[index].mode === 0) {
+          // TRIGGER KEYS
         } else if (controllerState.channels[index].mode === 1) {
+          // Tap mode
           controllerState.channels[index].tapDown = true
+        } else if (controllerState.channels[index].mode === 2) {
+          // Random mode
+          if (shiftDown) {
+            controllerState.channels[index].random.amount = Math.max(
+              0,
+              controllerState.channels[index].random.amount - 1
+            )
+          } else {
+            controllerState.channels[index].random.amount = Math.min(
+              24,
+              controllerState.channels[index].random.amount + 1
+            )
+          }
         }
       }
     }
@@ -45,14 +60,16 @@ export default {
           (controllerState.channels[index].mode + 1) % 4
         //
       } else if (chanelTriggerKeys.includes(key.toLowerCase())) {
+        // TRIGGER KEYS
         const index = chanelTriggerKeys.indexOf(key.toLowerCase())
         if (controllerState.channels[index].mode === 0) {
+          // Sequencer mode
           if (shiftDown) {
             controllerState.channels[index].sequencer.forEach((val, i) => {
               controllerState.channels[index].sequencer[i] = 0
             })
           } else {
-            // Sequence tap
+            // tap
             if (controllerClock.isPlaying.value) {
               const quav = Math.floor(
                 (controllerClock.currentTime.value % 16) - 0.1
@@ -63,7 +80,10 @@ export default {
             }
           }
         } else if (controllerState.channels[index].mode === 1) {
+          // Tap mode
           controllerState.channels[index].tapDown = false
+        } else if (controllerState.channels[index].mode === 2) {
+          // Random mode
         }
       }
     }

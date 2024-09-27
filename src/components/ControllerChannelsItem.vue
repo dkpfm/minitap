@@ -22,7 +22,7 @@
         tabindex="-1"
         type="text"
         :value="channelData.name"
-        placeholder="No Name"
+        placeholder="Name"
         @keydown.stop=""
       />
     </div>
