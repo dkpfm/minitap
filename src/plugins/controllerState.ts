@@ -6,7 +6,7 @@ const state = {
       sequencer: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
-        amount: 2,
+        amount: 8,
         seed: 0
       }
     },

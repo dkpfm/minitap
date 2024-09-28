@@ -33,8 +33,8 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
       48: './assets/icon-512.png',
       128: './assets/icon-512.png'
     },
-    permissions: ['contextMenus', 'storage'],
-    host_permissions: ['http://*/*', 'https://*/*'],
+    // permissions: ['contextMenus', 'storage'],
+    // host_permissions: ['http://*/*', 'https://*/*'],
     // optional_permissions: ['*://*/*'],
     content_security_policy: {},
     web_accessible_resources: [

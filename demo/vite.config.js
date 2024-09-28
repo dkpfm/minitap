@@ -12,5 +12,10 @@ export default defineConfig({
         }
       }
     })
-  ]
+  ],
+  app: {
+    head: {
+      link: [{ rel: 'icon', type: 'image/svg', href: '/icon-512.svg' }]
+    }
+  }
 })
