@@ -9,7 +9,7 @@ const props = defineProps(['physics'])
 const rotation = ref(0)
 const { onBeforeRender } = useLoop()
 onBeforeRender(() => {
-  rotation.value += 0.001
+  rotation.value += 0.0005
 })
 </script>
 
