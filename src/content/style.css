@@ -1,5 +1,5 @@
 .mt-controller {
-  position: fixed;
+  /* position: fixed; */
   display: flex;
   align-items: center;
 }

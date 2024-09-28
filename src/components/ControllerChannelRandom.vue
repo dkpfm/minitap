@@ -29,7 +29,7 @@
 
 <script setup>
 import RadarBg from './ControllerChannelRandomRadarBg.vue'
-import createRandomSequence from '~/utils/createRandomSequence'
+import createRandomSequence from './../utils/createRandomSequence'
 
 const props = defineProps(['channelIndex'])
 
@@ -55,10 +55,14 @@ const points = computed(() => {
     amount: randData.amount,
     seed: randData.seed
   }).map((p, index) => {
-    const r = 8 + 10 * (Math.sin(index * 2323.32982) + 1)
+    const r =
+      8 + 10 * (Math.sin(index * 2323.32982 + randData.seed * 2.132) + 1)
     // const r = 16
     const a = (p / 16) * (Math.PI * 2) - Math.PI / 2
-    return { x: r * Math.cos(a), y: r * Math.sin(a) }
+    return {
+      x: Math.round((r * Math.cos(a) * 100) / 100),
+      y: Math.round(r * Math.sin(a) * 100) / 100
+    }
   })
 })
 

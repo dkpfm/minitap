@@ -2,7 +2,7 @@ const state = {
   channels: reactive([
     {
       name: 'Kick',
-      mode: 2,
+      mode: 0,
       sequencer: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
@@ -12,11 +12,11 @@ const state = {
     },
     {
       name: 'Clap',
-      mode: 2,
+      mode: 0,
       sequencer: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       tapDown: false,
       random: {
-        amount: 20,
+        amount: 8,
         seed: 2
       }
     },
@@ -76,8 +76,8 @@ const state = {
       sequencer: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
-        amount: 6,
-        seed: 1
+        amount: 8,
+        seed: 0
       }
     }
   ])

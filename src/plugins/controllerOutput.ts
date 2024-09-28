@@ -1,5 +1,5 @@
 import { watch, computed } from 'vue'
-import createRandomSequence from '~/utils/createRandomSequence'
+import createRandomSequence from './../utils/createRandomSequence'
 
 export default {
   install(app) {

@@ -1,4 +1,4 @@
-import BpmGuesser from '~/utils/bpmGuesser'
+import BpmGuesser from './../utils/bpmGuesser'
 const chanelModeKeys = 'qweruiop'.split('')
 const chanelTriggerKeys = 'asdfhjkl'.split('')
 let shiftDown = false
@@ -88,19 +88,21 @@ export default {
       }
     }
 
-    window.addEventListener('message', ({ data }) => {
-      if (data.name === 'mt-key-down') {
-        handleKeyDown(data.key, data.shiftKey)
-      }
-      if (data.name === 'mt-key-up') {
-        handleKeyUp(data.key, data.shiftKey)
-      }
-    })
-    window.addEventListener('keydown', (event) =>
-      handleKeyDown(event.key, event.shiftKey)
-    )
-    window.addEventListener('keyup', (event) =>
-      handleKeyUp(event.key, event.shiftKey)
-    )
+    if (process.client) {
+      window.addEventListener('message', ({ data }) => {
+        if (data.name === 'mt-key-down') {
+          handleKeyDown(data.key, data.shiftKey)
+        }
+        if (data.name === 'mt-key-up') {
+          handleKeyUp(data.key, data.shiftKey)
+        }
+      })
+      window.addEventListener('keydown', (event) =>
+        handleKeyDown(event.key, event.shiftKey)
+      )
+      window.addEventListener('keyup', (event) =>
+        handleKeyUp(event.key, event.shiftKey)
+      )
+    }
   }
 }

@@ -12,10 +12,10 @@ createApp(App)
   })
   .mount('#app')
 
-window.addEventListener('message', ({ data }) => {
-  if (data.name === 'mt-channel1-on') {
-    physics.spawn({ remove: true })
-    physics.spawn({ remove: true })
-    physics.spawn({ remove: true })
-  }
-})
+// window.addEventListener('message', ({ data }) => {
+//   if (data.name === 'mt-channel1-on') {
+//     physics.spawn({ remove: true })
+//     physics.spawn({ remove: true })
+//     physics.spawn({ remove: true })
+//   }
+// })
