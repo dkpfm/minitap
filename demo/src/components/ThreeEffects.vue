@@ -90,24 +90,28 @@ let pixelAmount = 0
 let pixelOn = false
 let pixelXLOn = false
 let flashAmount = 0
+function onMessage({ data }) {
+  if (data.name === 'mt-channel0-on') {
+    flashAmount = 1
+  }
+  if (data.name === 'mt-channel4-on') {
+    pixelOn = true
+  }
+  if (data.name === 'mt-channel4-off') {
+    pixelOn = false
+  }
+  if (data.name === 'mt-channel5-on') {
+    pixelXLOn = true
+  }
+  if (data.name === 'mt-channel5-off') {
+    pixelXLOn = false
+  }
+}
 onMounted(() => {
-  window.addEventListener('message', ({ data }) => {
-    if (data.name === 'mt-channel0-on') {
-      flashAmount = 1
-    }
-    if (data.name === 'mt-channel4-on') {
-      pixelOn = true
-    }
-    if (data.name === 'mt-channel4-off') {
-      pixelOn = false
-    }
-    if (data.name === 'mt-channel5-on') {
-      pixelXLOn = true
-    }
-    if (data.name === 'mt-channel5-off') {
-      pixelXLOn = false
-    }
-  })
+  window.addEventListener('message', onMessage)
+})
+onUnmounted(() => {
+  window.removeEventListener('message', onMessage)
 })
 
 function tick({ delta }) {

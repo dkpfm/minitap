@@ -74,22 +74,26 @@ watch(physics.circlesState, (circlesState) => {
 let rotationVel = 1
 let fwdOn = false
 let bwdOn = false
-onMounted(() => {
-  window.addEventListener('message', ({ data }) => {
-    if (data.name === 'mt-channel2-on') {
-      fwdOn = true
-    }
-    if (data.name === 'mt-channel2-off') {
-      fwdOn = false
-    }
+function onMessage({ data }) {
+  if (data.name === 'mt-channel2-on') {
+    fwdOn = true
+  }
+  if (data.name === 'mt-channel2-off') {
+    fwdOn = false
+  }
 
-    if (data.name === 'mt-channel3-on') {
-      bwdOn = true
-    }
-    if (data.name === 'mt-channel3-off') {
-      bwdOn = false
-    }
-  })
+  if (data.name === 'mt-channel3-on') {
+    bwdOn = true
+  }
+  if (data.name === 'mt-channel3-off') {
+    bwdOn = false
+  }
+}
+onMounted(() => {
+  window.addEventListener('message', onMessage)
+})
+onUnmounted(() => {
+  window.removeEventListener('message', onMessage)
 })
 
 useRafFn(({ delta }) => {

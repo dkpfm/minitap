@@ -154,16 +154,21 @@ onUnmounted(() => {
 })
 
 let to
+
+function onMessage({ data }) {
+  if (data.name === 'mt-channel7-on') {
+    t += Math.random() * 3743.3483
+    setRandomColorIndex()
+    active = true
+    clearTimeout(to)
+    to = setTimeout(() => (active = false), 800)
+  }
+}
 onMounted(() => {
-  window.addEventListener('message', ({ data }) => {
-    if (data.name === 'mt-channel7-on') {
-      t += Math.random() * 3743.3483
-      setRandomColorIndex()
-      active = true
-      clearTimeout(to)
-      to = setTimeout(() => (active = false), 800)
-    }
-  })
+  window.addEventListener('message', onMessage)
+})
+onUnmounted(() => {
+  window.removeEventListener('message', onMessage)
 })
 </script>
 
