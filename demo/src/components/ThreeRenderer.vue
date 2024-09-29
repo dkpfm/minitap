@@ -1,6 +1,13 @@
 <script setup>
 import * as THREE from 'three'
-import { watch, ref, shallowRef, onMounted, defineExpose } from 'vue'
+import {
+  watch,
+  ref,
+  shallowRef,
+  onMounted,
+  onUnmounted,
+  defineExpose
+} from 'vue'
 import { useWindowSize, useRafFn } from '@vueuse/core'
 
 const canvasElement = ref(null)
@@ -17,6 +24,10 @@ onMounted(() => {
   // instance.autoClear = false
   instance.value.setClearColor(0xececf0, 1)
   instance.value.outputColorSpace = THREE.SRGBColorSpace
+})
+
+onUnmounted(() => {
+  if (instance.value) instance.value.dispose()
 })
 
 const scene = new THREE.Scene()

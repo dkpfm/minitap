@@ -60,7 +60,6 @@ export default function () {
       }
     }
     _.times(70, spawn)
-    console.log(circles.length)
 
     // run the renderer
     if (USE_RENDERER) {

@@ -98,7 +98,7 @@ export default {
         }
       })
       window.addEventListener('keydown', (event) => {
-        event.preventDefault()
+        if (event.key === ' ') event.preventDefault()
         handleKeyDown(event.key, event.shiftKey)
       })
       window.addEventListener('keyup', (event) =>
