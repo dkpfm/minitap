@@ -9,7 +9,9 @@ const effects = ref(null)
 </script>
 
 <template>
-  <ThreeRenderer ref="renderer" />
-  <ThreeEffects ref="effects" :renderer="renderer" :addTo="renderer?.scene" />
-  <ThreeCirclesGroup :addTo="effects?.scene" />
+  <div class="three-canvas">
+    <ThreeRenderer ref="renderer" />
+    <ThreeEffects ref="effects" :renderer="renderer" :addTo="renderer?.scene" />
+    <ThreeCirclesGroup :addTo="effects?.scene" />
+  </div>
 </template>
