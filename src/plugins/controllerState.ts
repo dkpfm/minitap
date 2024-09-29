@@ -71,7 +71,7 @@ const state = {
       }
     },
     {
-      name: 'Spark',
+      name: 'Trails',
       mode: 2,
       sequencer: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
