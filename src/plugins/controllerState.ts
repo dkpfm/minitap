@@ -1,9 +1,9 @@
 const state = {
   channels: reactive([
     {
-      name: 'Kick',
+      name: 'Flash',
       mode: 0,
-      sequencer: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+      sequencer: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 8,
@@ -11,7 +11,7 @@ const state = {
       }
     },
     {
-      name: 'Clap',
+      name: 'Spawn',
       mode: 0,
       sequencer: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       tapDown: false,
@@ -31,19 +31,9 @@ const state = {
       }
     },
     {
-      name: 'Bkd',
+      name: 'Bwd',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      tapDown: false,
-      random: {
-        amount: 0,
-        seed: 0
-      }
-    },
-    {
-      name: '',
-      mode: 0,
-      sequencer: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 0,
@@ -52,8 +42,8 @@ const state = {
     },
     {
       name: 'Pixel',
-      mode: 1,
-      sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      mode: 0,
+      sequencer: [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 0,
@@ -62,6 +52,16 @@ const state = {
     },
     {
       name: 'PixelXL',
+      mode: 0,
+      sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+      tapDown: false,
+      random: {
+        amount: 0,
+        seed: 0
+      }
+    },
+    {
+      name: '',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,

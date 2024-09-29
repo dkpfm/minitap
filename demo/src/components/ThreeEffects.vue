@@ -16,7 +16,8 @@ const mesh = new THREE.Mesh(
     uniforms: {
       map: { value: target.texture },
       pixelAmount: { value: 0 },
-      resolution: { value: new THREE.Vector2() }
+      resolution: { value: new THREE.Vector2() },
+      flash: { value: 0 }
     },
     vertexShader: /*glsl */ `
       #include <common>
@@ -31,6 +32,7 @@ const mesh = new THREE.Mesh(
       uniform sampler2D map;
       uniform float pixelAmount;
       uniform vec2 resolution;
+      uniform float flash;
       varying vec2 vUv;
 
       void main() {
@@ -39,12 +41,12 @@ const mesh = new THREE.Mesh(
           float aspect = resolution.x / resolution.y;
           vec2 pUv = vUv;
           pUv -= 0.5;
-          // pUv.x *= aspect;
           pUv = round(pUv / vec2(pixelAmount / aspect, pixelAmount)) *  vec2(pixelAmount / aspect, pixelAmount);
           pUv += 0.5;
           uv = pUv;
         }
         vec4 color = texture2D(map, uv);
+        color.rgb = mix(color.rgb, vec3(1.0), flash);
         gl_FragColor = color;
         #include <colorspace_fragment>
       }
@@ -87,18 +89,22 @@ watch(
 let pixelAmount = 0
 let pixelOn = false
 let pixelXLOn = false
+let flashAmount = 0
 onMounted(() => {
   window.addEventListener('message', ({ data }) => {
-    if (data.name === 'mt-channel5-on') {
+    if (data.name === 'mt-channel0-on') {
+      flashAmount = 1
+    }
+    if (data.name === 'mt-channel4-on') {
       pixelOn = true
     }
-    if (data.name === 'mt-channel5-off') {
+    if (data.name === 'mt-channel4-off') {
       pixelOn = false
     }
-    if (data.name === 'mt-channel6-on') {
+    if (data.name === 'mt-channel5-on') {
       pixelXLOn = true
     }
-    if (data.name === 'mt-channel6-off') {
+    if (data.name === 'mt-channel5-off') {
       pixelXLOn = false
     }
   })
@@ -109,6 +115,9 @@ function tick({ delta }) {
   pixelTarget = pixelXLOn ? 0.1 : pixelTarget
   pixelAmount += (pixelTarget - pixelAmount) * 0.02 * delta
   mesh.material.uniforms.pixelAmount.value = pixelAmount
+  //
+  flashAmount -= flashAmount * 0.005 * delta
+  mesh.material.uniforms.flash.value = flashAmount
   //
   props.renderer.instance.setRenderTarget(target)
   props.renderer.instance.render(scene, camera)

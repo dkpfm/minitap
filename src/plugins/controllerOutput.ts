@@ -27,7 +27,7 @@ export default {
           },
           '*'
         )
-      }, 100)
+      }, 200)
     }
 
     // STUFF THAT HAPPENS AT THE BEGINNING OF EACH SEQUENCE

@@ -1,6 +1,6 @@
 import { ref, computed, watch } from 'vue'
 
-const bpm = ref(120)
+const bpm = ref(100)
 const currentBeat = ref(0)
 const currentQuaver = ref(0)
 const currentTime = ref(0)

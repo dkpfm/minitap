@@ -9,6 +9,17 @@ const props = defineProps(['addTo'])
 const physics = inject('physics')
 
 const group = new THREE.Group()
+group.name = 'Circles'
+watch(
+  () => props.addTo,
+  (addTo) => {
+    if (addTo) {
+      addTo.add(group)
+    }
+  },
+  { immediate: true }
+)
+
 let circlesPool = []
 function allocCircle() {
   const free = circlesPool.find((c) => c.userData.free)
@@ -30,16 +41,6 @@ function freeCircle(c) {
   c.userData.free = true
   group.remove(c)
 }
-
-watch(
-  () => props.addTo,
-  (addTo) => {
-    if (addTo) {
-      addTo.add(group)
-    }
-  },
-  { immediate: true }
-)
 
 const baseGray = new THREE.Color('#E0E0E4')
 const yellow = new THREE.Color('#D9FF64')
