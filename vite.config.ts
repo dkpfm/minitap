@@ -28,6 +28,9 @@ export default defineConfig(({ command }) => {
         host: 'localhost'
       }
     },
+    define: {
+      'process.client': true
+    },
     build: {
       outDir: r('extension/prod'),
       emptyOutDir: false,

@@ -21,7 +21,7 @@ const state = {
       }
     },
     {
-      name: 'Ehh!',
+      name: 'Fwd',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
@@ -31,7 +31,7 @@ const state = {
       }
     },
     {
-      name: '',
+      name: 'Bkd',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,

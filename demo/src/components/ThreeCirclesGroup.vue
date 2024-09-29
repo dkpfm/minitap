@@ -1,6 +1,6 @@
 <script setup>
 import * as THREE from 'three'
-import { ref, watch, defineProps, inject, onUnmounted } from 'vue'
+import { ref, watch, defineProps, inject, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { useRafFn } from '@vueuse/core'
 
@@ -70,8 +70,34 @@ watch(physics.circlesState, (circlesState) => {
   })
   removed.forEach(freeCircle)
 })
+
+let rotationVel = 1
+let fwdOn = false
+let bwdOn = false
+onMounted(() => {
+  window.addEventListener('message', ({ data }) => {
+    if (data.name === 'mt-channel2-on') {
+      fwdOn = true
+    }
+    if (data.name === 'mt-channel2-off') {
+      fwdOn = false
+    }
+
+    if (data.name === 'mt-channel3-on') {
+      bwdOn = true
+    }
+    if (data.name === 'mt-channel3-off') {
+      bwdOn = false
+    }
+  })
+})
+
 useRafFn(({ delta }) => {
-  group.rotation.z += 0.0001 * delta
+  let rotationTarget = fwdOn ? 25 : 1
+  rotationTarget += bwdOn ? -25 : 0
+  rotationVel += (rotationTarget - rotationVel) * 0.01 * delta
+  // console.log(rotationVel)
+  group.rotation.z += 0.0001 * rotationVel * delta
 })
 onUnmounted(() => {
   group.parent.remove(group)
