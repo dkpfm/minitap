@@ -17,5 +17,8 @@ export default defineConfig({
     head: {
       link: [{ rel: 'icon', type: 'image/svg', href: '/icon-512.svg' }]
     }
+  },
+  define: {
+    'process.client': true
   }
 })

@@ -31,7 +31,7 @@ export default function () {
     }
 
     const center = Bodies.circle(0, 0, 200)
-    Composite.add(engine.world, [center])
+    // Composite.add(engine.world, [center])
     if (USE_RENDERER) {
       Render.lookAt(render, [center], Matter.Vector.create(1000, 1000))
     }
@@ -40,6 +40,7 @@ export default function () {
     const circles = []
     const circlesData = []
     function spawn({ remove = false } = {}) {
+      // if (circles.length === 10) return
       const radius = 50 + Math.random() * 150
       const circ = Bodies.circle(
         (Math.random() - 0.5) * 1200,
@@ -59,6 +60,7 @@ export default function () {
       }
     }
     _.times(70, spawn)
+    console.log(circles.length)
 
     // run the renderer
     if (USE_RENDERER) {
@@ -80,11 +82,13 @@ export default function () {
         force.y = -c.position.y * 0.0001
         Matter.Body.applyForce(c, c.position, force)
       })
-      circlesState.value = circles.map((c, i) => ({
-        id: c.id,
-        pos: { x: c.position.x, y: -c.position.y },
-        scale: circlesData[i].radius
-      }))
+      circlesState.value = [
+        ...circles.map((c, i) => ({
+          id: c.id,
+          pos: { x: c.position.x, y: -c.position.y },
+          scale: circlesData[i].radius
+        }))
+      ]
     }
     tick()
 
