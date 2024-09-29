@@ -97,9 +97,10 @@ export default {
           handleKeyUp(data.key, data.shiftKey)
         }
       })
-      window.addEventListener('keydown', (event) =>
+      window.addEventListener('keydown', (event) => {
+        event.preventDefault()
         handleKeyDown(event.key, event.shiftKey)
-      )
+      })
       window.addEventListener('keyup', (event) =>
         handleKeyUp(event.key, event.shiftKey)
       )
