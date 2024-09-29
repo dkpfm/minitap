@@ -106,6 +106,8 @@ const channelData = computed(() => controllerState.channels[props.index])
 }
 .name {
   margin: 5px 0;
+  position: relative;
+  z-index: 2;
   > input {
     background: transparent;
     width: 100%;

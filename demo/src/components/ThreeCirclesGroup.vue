@@ -36,7 +36,6 @@ watch(
   (addTo) => {
     if (addTo) {
       addTo.add(group)
-      allocCircle()
     }
   },
   { immediate: true }
@@ -96,7 +95,6 @@ useRafFn(({ delta }) => {
   let rotationTarget = fwdOn ? 25 : 1
   rotationTarget += bwdOn ? -25 : 0
   rotationVel += (rotationTarget - rotationVel) * 0.01 * delta
-  // console.log(rotationVel)
   group.rotation.z += 0.0001 * rotationVel * delta
 })
 onUnmounted(() => {

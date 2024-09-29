@@ -51,7 +51,7 @@ const state = {
       }
     },
     {
-      name: '',
+      name: 'Pixel',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
@@ -61,7 +61,7 @@ const state = {
       }
     },
     {
-      name: '',
+      name: 'PixelXL',
       mode: 1,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
@@ -71,7 +71,7 @@ const state = {
       }
     },
     {
-      name: 'Rand',
+      name: 'Spark',
       mode: 2,
       sequencer: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,

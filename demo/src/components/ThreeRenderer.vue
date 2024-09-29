@@ -12,6 +12,7 @@ import { useWindowSize, useRafFn } from '@vueuse/core'
 
 const canvasElement = ref(null)
 const instance = shallowRef(null)
+let beforeRender = []
 
 onMounted(() => {
   instance.value = new THREE.WebGLRenderer({
@@ -54,12 +55,24 @@ watch(
   { immediate: true }
 )
 
-const tick = useRafFn(() => {
+const tick = useRafFn((event) => {
+  beforeRender.forEach((cb) => cb(event))
   instance.value.clear()
   instance.value.render(scene, camera)
 })
 
-defineExpose({ instance, scene, camera })
+defineExpose({
+  instance,
+  scene,
+  camera,
+  pixelRatio,
+  onBeforeRender(cb) {
+    beforeRender.push(cb)
+  },
+  offBeforeRender(cb) {
+    beforeRender = beforeRender.filter((_cb) => _cb !== cb)
+  }
+})
 </script>
 
 <template>
