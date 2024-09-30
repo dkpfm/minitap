@@ -71,22 +71,28 @@ watch(physics.circlesState, (circlesState) => {
   removed.forEach(freeCircle)
 })
 
+const audio = inject('audio')
+
 let rotationVel = 1
 let fwdOn = false
 let bwdOn = false
 function onMessage({ data }) {
   if (data.name === 'mt-channel2-on') {
     fwdOn = true
+    audio.triggerFwdSound()
   }
   if (data.name === 'mt-channel2-off') {
     fwdOn = false
+    audio.stopFwdSound()
   }
 
   if (data.name === 'mt-channel3-on') {
     bwdOn = true
+    audio.triggerBwdSound()
   }
   if (data.name === 'mt-channel3-off') {
     bwdOn = false
+    audio.stopBwdSound()
   }
 }
 onMounted(() => {

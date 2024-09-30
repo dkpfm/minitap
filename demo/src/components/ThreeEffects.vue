@@ -2,7 +2,7 @@
 import * as THREE from 'three'
 import ThreeRenderer from './ThreeRenderer.vue'
 import ThreeCirclesGroup from './ThreeCirclesGroup.vue'
-import { ref, watch, defineExpose, onMounted, onUnmounted } from 'vue'
+import { ref, watch, defineExpose, onMounted, onUnmounted, inject } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 
 const props = defineProps(['renderer', 'addTo'])
@@ -86,6 +86,8 @@ watch(
   { immediate: true }
 )
 
+const audio = inject('audio')
+
 let pixelAmount = 0
 let pixelOn = false
 let pixelXLOn = false
@@ -96,15 +98,19 @@ function onMessage({ data }) {
   }
   if (data.name === 'mt-channel4-on') {
     pixelOn = true
+    audio.triggerNoiseSubtle()
   }
   if (data.name === 'mt-channel4-off') {
     pixelOn = false
+    audio.stopNoiseSubtle()
   }
   if (data.name === 'mt-channel5-on') {
     pixelXLOn = true
+    audio.triggerNoise()
   }
   if (data.name === 'mt-channel5-off') {
     pixelXLOn = false
+    audio.stopNoise()
   }
 }
 onMounted(() => {

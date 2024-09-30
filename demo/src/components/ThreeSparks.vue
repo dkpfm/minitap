@@ -1,7 +1,7 @@
 <script setup>
 import _ from 'underscore'
 import * as THREE from 'three'
-import { ref, watch, defineProps, onMounted, onUnmounted } from 'vue'
+import { ref, watch, defineProps, onMounted, onUnmounted, inject } from 'vue'
 
 const props = defineProps(['renderer', 'addTo', 'index'])
 
@@ -153,15 +153,16 @@ onUnmounted(() => {
   props.renderer?.offBeforeRender(tick)
 })
 
+const audio = inject('audio')
 let to
-
 function onMessage({ data }) {
   if (data.name === 'mt-channel7-on') {
     t += Math.random() * 3743.3483
     setRandomColorIndex()
     active = true
     clearTimeout(to)
-    to = setTimeout(() => (active = false), 800)
+    audio.triggerBleep()
+    to = setTimeout(() => (active = false), 400)
   }
 }
 onMounted(() => {

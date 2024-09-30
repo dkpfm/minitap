@@ -12,11 +12,11 @@ const state = {
     },
     {
       name: 'Spawn',
-      mode: 0,
+      mode: 2,
       sequencer: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       tapDown: false,
       random: {
-        amount: 8,
+        amount: 12,
         seed: 2
       }
     },
@@ -43,7 +43,7 @@ const state = {
     {
       name: 'Pixel',
       mode: 0,
-      sequencer: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      sequencer: [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 0,
@@ -62,7 +62,7 @@ const state = {
     },
     {
       name: '',
-      mode: 1,
+      mode: 4,
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
