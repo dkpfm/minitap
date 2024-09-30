@@ -122,7 +122,7 @@ onUnmounted(() => {
 
 function tick({ delta }) {
   let pixelTarget = pixelOn ? 0.02 : 0
-  pixelTarget = pixelXLOn ? 0.1 : pixelTarget
+  pixelTarget = pixelXLOn ? 0.08 : pixelTarget
   pixelAmount += (pixelTarget - pixelAmount) * 0.02 * delta
   mesh.material.uniforms.pixelAmount.value = pixelAmount
   //

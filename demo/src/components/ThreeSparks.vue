@@ -6,6 +6,7 @@ import { ref, watch, defineProps, onMounted, onUnmounted, inject } from 'vue'
 const props = defineProps(['renderer', 'addTo', 'index'])
 
 let active = false
+let pixelXLOn = false
 const colors = [
   '#0100FE',
   '#3E3F3E',
@@ -73,7 +74,8 @@ group.add(sparks)
 function updateSparks() {
   sparksData.forEach((data, i) => {
     matrix.identity()
-    const s = data.visible ? data.scale : 0
+    let s = data.visible ? data.scale : 0
+    s *= pixelXLOn ? 10 : 1
     matrix.makeScale(s, s, s)
     matrix.setPosition(data.x, data.y, 0)
     sparks.setMatrixAt(i, matrix)
@@ -163,6 +165,14 @@ function onMessage({ data }) {
     clearTimeout(to)
     audio.triggerBleep()
     to = setTimeout(() => (active = false), 400)
+  }
+  if (data.name === 'mt-channel5-on') {
+    pixelXLOn = true
+    audio.triggerNoise()
+  }
+  if (data.name === 'mt-channel5-off') {
+    pixelXLOn = false
+    audio.stopNoise()
   }
 }
 onMounted(() => {
