@@ -43,7 +43,7 @@ const state = {
     {
       name: 'Pixel',
       mode: 0,
-      sequencer: [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      sequencer: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 0,
@@ -52,8 +52,8 @@ const state = {
     },
     {
       name: 'PixelXL',
-      mode: 0,
-      sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+      mode: 1,
+      sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
         amount: 0,

@@ -103,7 +103,7 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
     actualIframeRef = iframeRef?.querySelector('iframe')
 
     handles = iframeRef?.querySelectorAll('.mt-controller-grab')
-    x = (innerWidth - 1200) / 2
+    x = -200
     xTarget = x
     y = innerHeight / 2
     yTarget = innerHeight / 2 - 150
