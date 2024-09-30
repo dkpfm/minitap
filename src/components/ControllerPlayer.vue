@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+import { inject } from 'vue'
+
 import IconPlay from './icon/Play.vue'
 import IconPause from './icon/Pause.vue'
 import ControllerPlayerVisuals from './ControllerPlayerVisuals.vue'
@@ -35,7 +37,7 @@ function handlePlayClick() {
   border: 1px solid #b8b8bd;
   display: flex;
   flex-direction: column;
-  padding: 8px 0 4px;
+  padding: 8px 0 2px;
   align-items: center;
   justify-content: center;
   gap: 5px;

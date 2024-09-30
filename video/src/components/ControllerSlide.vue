@@ -1,11 +1,14 @@
 <script setup>
 import gsap from 'gsap'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, inject } from 'vue'
+import Controller from './../../../src/components/Controller.vue'
 
 const controllerTopEl = ref(null)
 const controllerTopWrapperEl = ref(null)
 const controllerBottomEl = ref(null)
 const controllerBottomWrapperEl = ref(null)
+
+const controllerClock = inject('controllerClock')
 
 watch(
   () => [controllerTopEl.value],
@@ -16,12 +19,14 @@ watch(
     gsap.set(controllerTopEl.value, {
       y: -133,
       x: 1500,
-      scale: 1.5
+      scale: 1.5,
+      opacity: 0
     })
     gsap.set(controllerBottomEl.value, {
       y: 133,
       x: -1500,
-      scale: 1.5
+      scale: 1.5,
+      opacity: 0
     })
 
     // TIMELINE
@@ -31,6 +36,7 @@ watch(
       controllerTopEl.value,
       {
         x: 600,
+        opacity: 1,
         ease: 'expo.out',
         duration: 1
       },
@@ -40,6 +46,7 @@ watch(
       controllerBottomEl.value,
       {
         x: -600,
+        opacity: 1,
         ease: 'expo.out',
         duration: 1
       },
@@ -102,7 +109,10 @@ watch(
       5
     )
 
-    window.addEventListener('click', () => tl.play())
+    window.addEventListener('click', () => {
+      tl.play()
+      controllerClock.toggle()
+    })
   },
   { immediate: true }
 )
@@ -112,12 +122,14 @@ watch(
   <div class="wrapper">
     <div class="center">
       <div ref="controllerTopWrapperEl">
-        <div ref="controllerTopEl" class="controller-top"></div>
+        <div ref="controllerTopEl" class="controller-top"><Controller /></div>
       </div>
     </div>
     <div class="center">
       <div ref="controllerBottomWrapperEl">
-        <div ref="controllerBottomEl" class="controller-bottom"></div>
+        <div ref="controllerBottomEl" class="controller-bottom">
+          <Controller />
+        </div>
       </div>
     </div>
   </div>
@@ -134,7 +146,8 @@ watch(
 .controller-bottom {
   width: 1200px;
   height: 150px;
-  background: #000;
-  border-radius: 20px;
+  /* background: #000; */
+  /* border-radius: 20px; */
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
 }
 </style>

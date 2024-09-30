@@ -10,6 +10,8 @@
 </template>
 
 <script setup>
+import { defineProps, inject, computed } from 'vue'
+
 import TapFx from './icon/TapFx.vue'
 
 // import _ from 'underscore'

@@ -19,7 +19,7 @@
 
 <script setup>
 import _ from 'underscore'
-import { defineProps } from 'vue'
+import { defineProps, inject, computed } from 'vue'
 
 const props = defineProps(['channelIndex'])
 

@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { defineProps, inject } from 'vue'
+import { defineProps, inject, computed } from 'vue'
 import Actions from './ControllerChannelsItemActions.vue'
 import Sequencer from './ControllerChannelSequencer.vue'
 import Tap from './ControllerChannelTap.vue'

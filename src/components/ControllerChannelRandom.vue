@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+import { ref, onMounted, watch, inject, computed } from 'vue'
+
 import RadarBg from './ControllerChannelRandomRadarBg.vue'
 import createRandomSequence from './../utils/createRandomSequence'
 

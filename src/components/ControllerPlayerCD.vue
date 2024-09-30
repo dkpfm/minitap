@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { computed, inject } from 'vue'
 
 const controllerClock = inject('controllerClock')
 

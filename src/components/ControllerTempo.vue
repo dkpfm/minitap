@@ -17,6 +17,8 @@
 </template>
 
 <script setup>
+import { computed, inject } from 'vue'
+
 import IconMetronome from './icon/Metronome.vue'
 
 const controllerClock = inject('controllerClock')

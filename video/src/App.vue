@@ -7,9 +7,9 @@ import KeyboardTempoSlide from './components/KeyboardTempoSlide.vue'
 
 <template>
   <div class="viewport">
-    <!-- <TitleSlide /> -->
+    <TitleSlide />
     <!-- <ControllerSlide /> -->
-    <KeyboardSlide />
+    <!-- <KeyboardSlide /> -->
     <!-- <KeyboardTempoSlide /> -->
   </div>
 </template>

@@ -2,6 +2,7 @@
 import gsap from 'gsap'
 import { ref, onMounted, watch } from 'vue'
 import Logo from './Logo.vue'
+import Controller from './../../../src/components/Controller.vue'
 
 const controllerEl = ref(null)
 const keyboardEl = ref(null)
@@ -14,11 +15,11 @@ watch(
 
     // INITIAL STATE
     gsap.set(controllerEl.value, {
-      y: -300,
-      scale: 1.5
+      y: -330,
+      scale: 1.25
     })
     gsap.set(keyboardEl.value, {
-      y: 300,
+      y: 280,
       scale: 1
     })
 
@@ -60,10 +61,10 @@ watch(
 <template>
   <div class="wrapper">
     <div class="center">
-      <div ref="controllerEl" class="controller"></div>
+      <div ref="controllerEl" class="controller"><Controller /></div>
     </div>
     <div class="center">
-      <div ref="keyboardEl" class="keyboard"></div>
+      <div ref="keyboardEl" class="keyboard"><img src="/keyboard.png" /></div>
     </div>
     <div class="center">
       <Logo ref="logo" />
@@ -81,13 +82,14 @@ watch(
 .controller {
   width: 1200px;
   height: 150px;
-  background: #000;
-  border-radius: 50px;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
 }
 .keyboard {
   width: 960px;
   height: 335px;
   background: #eeee;
   border-radius: 20px;
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.2));
+  position: relative;
 }
 </style>

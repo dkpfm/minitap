@@ -1,10 +1,14 @@
 <script setup>
 import gsap from 'gsap'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, inject } from 'vue'
+import ControllerPlayer from './../../../src/components/ControllerPlayer.vue'
+import ControllerTempo from './../../../src/components/ControllerTempo.vue'
 
 const wrapperEl = ref(null)
 const kayboardEl = ref(null)
 const uiEl = ref(null)
+
+const controllerClock = inject('controllerClock')
 
 watch(
   () => [kayboardEl.value],
@@ -14,16 +18,19 @@ watch(
     // INITIAL STATE
     gsap.set(wrapperEl.value, {
       z: 1.1,
-      scale: 1,
-      rotation: 0
+      opacity: 0,
+      scale: 1.5,
+      rotation: 90
     })
     gsap.set(kayboardEl.value, {
-      x: -800,
+      y: 800,
+      x: -900,
       scale: 1.75
     })
     gsap.set(uiEl.value, {
-      x: 325,
-      scale: 1.2
+      y: -800,
+      x: 275,
+      scale: 2.5
     })
 
     // TIMELINE
@@ -31,21 +38,10 @@ watch(
     tl.to(
       wrapperEl.value,
       {
-        z: 1.1,
-        opacity: 0,
-        scale: 1.5,
-        rotation: -90,
-        ease: 'expo.in',
-        duration: 1.5
-      },
-      0
-    )
-
-    tl.to(
-      kayboardEl.value,
-      {
-        y: 700,
-        ease: 'expo.in',
+        opacity: 1,
+        rotation: 0,
+        scale: 1,
+        ease: 'expo.out',
         duration: 1.5
       },
       0
@@ -53,14 +49,59 @@ watch(
     tl.to(
       uiEl.value,
       {
-        y: -500,
-        ease: 'expo.in',
+        y: 0,
+        ease: 'expo.out',
+        duration: 1.3
+      },
+      0
+    )
+
+    tl.to(
+      kayboardEl.value,
+      {
+        y: 200,
+        ease: 'expo.out',
         duration: 1.5
       },
       0
     )
 
-    window.addEventListener('click', () => tl.play())
+    tl.to(
+      wrapperEl.value,
+      {
+        opacity: 0,
+        rotation: -90,
+        scale: 1.5,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
+    tl.to(
+      uiEl.value,
+      {
+        y: 120 * 10,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
+    tl.to(
+      kayboardEl.value,
+      {
+        y: -220 * 7,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
+    window.addEventListener('click', () => {
+      tl.play()
+      controllerClock.toggle()
+    })
   },
   { immediate: true }
 )
@@ -70,12 +111,14 @@ watch(
   <div ref="wrapperEl" class="wrapper">
     <div class="center">
       <div ref="uiEl" class="ui">
-        <div class="pill"></div>
-        <div class="pill"></div>
+        <ControllerPlayer />
+        <ControllerTempo />
       </div>
     </div>
     <div class="center">
-      <div ref="kayboardEl" class="keyboard"></div>
+      <div ref="kayboardEl" class="keyboard">
+        <img src="/keyboard.png" />
+      </div>
     </div>
   </div>
 </template>
@@ -89,10 +132,14 @@ watch(
   overflow: visible;
 }
 .ui {
-  width: 280px;
+  width: 100px;
   height: 300px;
+  height: 150px;
   display: flex;
   gap: 10px;
+  /* background: red; */
+  filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.4));
+
   .pill {
     background: #000;
     height: 100%;
@@ -105,5 +152,6 @@ watch(
   height: 335px;
   background: #eeee;
   border-radius: 20px;
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.2));
 }
 </style>

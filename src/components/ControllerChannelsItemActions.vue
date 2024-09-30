@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { inject, defineProps } from 'vue'
+import { inject, defineProps, computed } from 'vue'
 import IconMetronome from './icon/Metronome.vue'
 import IconTap from './icon/Tap.vue'
 import IconWave from './icon/Wave.vue'

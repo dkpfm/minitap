@@ -1,6 +1,7 @@
 <script setup>
 import gsap from 'gsap'
 import { ref, onMounted, watch } from 'vue'
+import ControllerChannelsItem from './../../../src/components/ControllerChannelsItem.vue'
 
 const wrapperEl = ref(null)
 const kayboardEl = ref(null)
@@ -19,7 +20,8 @@ watch(
       rotation: 90
     })
     gsap.set(channelEl.value, {
-      y: -120 * 4
+      y: -120 * 4,
+      scale: 2
     })
 
     gsap.set(kayboardEl.value, {
@@ -57,6 +59,40 @@ watch(
       0
     )
 
+    tl.to(
+      wrapperEl.value,
+      {
+        opacity: 0,
+        rotation: -90,
+        scale: 1.5,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
+    tl.to(
+      channelEl.value,
+      {
+        y: -120 * 5,
+        x: 200,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
+    tl.to(
+      kayboardEl.value,
+      {
+        y: 220 * 3,
+        x: -200,
+        ease: 'expo.in',
+        duration: 1
+      },
+      1.5
+    )
+
     window.addEventListener('click', () => tl.play())
   },
   { immediate: true }
@@ -66,10 +102,18 @@ watch(
 <template>
   <div ref="wrapperEl" class="wrapper">
     <div class="center">
-      <div ref="channelEl" class="channel"></div>
+      <div ref="channelEl" class="channel">
+        <ControllerChannelsItem
+          :options="{ key: 'L', color: '#FF4B69' }"
+          :index="7"
+          :color="red"
+        />
+      </div>
     </div>
     <div class="center">
-      <div ref="kayboardEl" class="keyboard"></div>
+      <div ref="kayboardEl" class="keyboard">
+        <img src="/keyboard.png" />
+      </div>
     </div>
   </div>
 </template>
@@ -83,15 +127,18 @@ watch(
   overflow: visible;
 }
 .channel {
-  width: 280px;
-  height: 300px;
-  background: #000;
-  border-radius: 20px;
+  width: 130px;
+  height: 130px;
+  /* background: #000; */
+  /* border-radius: 20px; */
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.2));
 }
 .keyboard {
   width: 960px;
   height: 335px;
   background: #eeee;
   border-radius: 20px;
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.2));
+  position: relative;
 }
 </style>
