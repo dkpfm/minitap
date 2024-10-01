@@ -22,3 +22,9 @@ import ControllerChannels from './ControllerChannels.vue'
   gap: 5px;
 }
 </style>
+
+<style lang="scss">
+.controller * {
+  user-select: none;
+}
+</style>

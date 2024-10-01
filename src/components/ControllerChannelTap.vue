@@ -1,10 +1,6 @@
 <template>
   <div class="channel-tap">
-    <div
-      :class="{ key: true, down: isDown }"
-      @mousedown="handleMouseDown"
-      @mouseup="handleMouseUp"
-    >
+    <div :class="{ key: true, down: isDown }" @mousedown="handleMouseDown">
       <div class="key-top">{{ props.letter }}</div>
       <div class="fx">
         <TapFx />
@@ -32,9 +28,11 @@ function handleMouseDown() {
   controllerState.channels[props.channelIndex].tapDown = true
 }
 
-function handleMouseUp() {
+import { useEventListener } from '@vueuse/core'
+
+useEventListener(document, 'mouseup', (evt) => {
   controllerState.channels[props.channelIndex].tapDown = false
-}
+})
 </script>
 
 <style lang="scss" scoped>

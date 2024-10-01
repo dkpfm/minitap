@@ -24,6 +24,7 @@
         :value="channelData.name"
         placeholder="Name"
         @keydown.stop=""
+        @keyup.stop=""
       />
     </div>
     <div class="flex-fill"></div>
