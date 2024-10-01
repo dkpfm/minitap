@@ -37,7 +37,7 @@ function handlePlayClick() {
   border: 1px solid #b8b8bd;
   display: flex;
   flex-direction: column;
-  padding: 8px 0 2px;
+  padding: 8px 0 3px;
   align-items: center;
   justify-content: center;
   gap: 5px;
