@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, onUnmounted, inject } from 'vue'
+import { onMounted, onUnmounted, inject, defineProps } from 'vue'
 import ThreeCanvas from './components/ThreeCanvas.vue'
+
+const props = ['active']
 
 const physics = inject('physics')
 const audio = inject('audio')
@@ -22,5 +24,5 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ThreeCanvas />
+  <ThreeCanvas :active="props.active" />
 </template>

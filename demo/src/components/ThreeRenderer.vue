@@ -6,9 +6,12 @@ import {
   shallowRef,
   onMounted,
   onUnmounted,
-  defineExpose
+  defineExpose,
+  defineProps
 } from 'vue'
 import { useWindowSize, useRafFn } from '@vueuse/core'
+
+const props = defineProps(['active'])
 
 const canvasElement = ref(null)
 const instance = shallowRef(null)
@@ -56,6 +59,7 @@ watch(
 )
 
 const tick = useRafFn((event) => {
+  if (!props.active) return
   beforeRender.forEach((cb) => cb(event))
   instance.value.clear()
   instance.value.render(scene, camera)

@@ -3,15 +3,16 @@ import ThreeRenderer from './ThreeRenderer.vue'
 import ThreeEffects from './ThreeEffects.vue'
 import ThreeCirclesGroup from './ThreeCirclesGroup.vue'
 import ThreeSparks from './ThreeSparks.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps } from 'vue'
 
+const props = defineProps(['active'])
 const renderer = ref(null)
 const effects = ref(null)
 </script>
 
 <template>
-  <div :style="{ opacity: 1 }" class="three-canvas">
-    <ThreeRenderer ref="renderer" />
+  <div :style="{ opacity: 1 }" class="three-canvas" ref="el">
+    <ThreeRenderer ref="renderer" :active="props.active" />
     <ThreeEffects ref="effects" :renderer="renderer" :addTo="renderer?.scene" />
     <ThreeCirclesGroup :addTo="effects?.scene" />
     <ThreeSparks :renderer="renderer" :index="0" :addTo="effects?.scene" />
