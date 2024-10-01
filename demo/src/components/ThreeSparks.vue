@@ -64,7 +64,7 @@ const sparksData = _.range(1000).map((i) => {
 
 const sparks = new THREE.InstancedMesh(
   new THREE.PlaneGeometry(5, 5),
-  new THREE.MeshBasicMaterial({ depthTest: false }),
+  new THREE.MeshBasicMaterial({ depthTest: false, transparent: true }),
   sparksData.length
 )
 sparks.renderOrder = 2

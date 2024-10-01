@@ -10,7 +10,7 @@ const effects = ref(null)
 </script>
 
 <template>
-  <div class="three-canvas">
+  <div :style="{ opacity: 1 }" class="three-canvas">
     <ThreeRenderer ref="renderer" />
     <ThreeEffects ref="effects" :renderer="renderer" :addTo="renderer?.scene" />
     <ThreeCirclesGroup :addTo="effects?.scene" />
@@ -19,3 +19,11 @@ const effects = ref(null)
     <ThreeSparks :renderer="renderer" :index="2" :addTo="effects?.scene" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.three-canvas {
+  opacity: 0;
+  transition: opacity 4s linear;
+  transition-delay: 5s;
+}
+</style>

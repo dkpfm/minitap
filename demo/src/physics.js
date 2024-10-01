@@ -39,7 +39,7 @@ export default function () {
     // create two boxes and a ground
     const circles = []
     const circlesData = []
-    function spawn({ remove = false } = {}) {
+    function spawn({ remove = false, highlight = false } = {}) {
       // if (circles.length === 10) return
       const radius = 50 + Math.random() * 150
       const circ = Bodies.circle(
@@ -51,7 +51,7 @@ export default function () {
       circ.friction = 0.1
       circ.slop = 0.1
       circles.push(circ)
-      circlesData.push({ radius })
+      circlesData.push({ radius, highlight })
       Composite.add(engine.world, [circ])
 
       if (remove) {
@@ -85,7 +85,8 @@ export default function () {
         ...circles.map((c, i) => ({
           id: c.id,
           pos: { x: c.position.x, y: -c.position.y },
-          scale: circlesData[i].radius
+          scale: circlesData[i].radius,
+          highlight: circlesData[i].highlight
         }))
       ]
     }

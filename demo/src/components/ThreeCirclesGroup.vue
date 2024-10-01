@@ -21,6 +21,9 @@ watch(
 )
 
 let circlesPool = []
+const baseGray = new THREE.Color('#E0E0E4')
+const yellow = new THREE.Color('#D9FF64')
+
 function allocCircle() {
   const free = circlesPool.find((c) => c.userData.free)
   if (free) {
@@ -30,7 +33,7 @@ function allocCircle() {
   } else {
     const c = new THREE.Mesh(
       new THREE.CircleGeometry(1, 64),
-      new THREE.MeshBasicMaterial()
+      new THREE.MeshBasicMaterial({ transparent: true, color: baseGray })
     )
     group.add(c)
     circlesPool.push(c)
@@ -42,22 +45,33 @@ function freeCircle(c) {
   group.remove(c)
 }
 
-const baseGray = new THREE.Color('#E0E0E4')
-const yellow = new THREE.Color('#D9FF64')
 watch(physics.circlesState, (circlesState) => {
   circlesState.forEach((data) => {
     let c = group.children.find((c) => c.userData.id === data.id)
     if (!c) {
       c = allocCircle()
       c.userData.id = data.id
-      c.userData.flash = 1
-      gsap.to(c.userData, {
-        flash: 0,
-        ease: 'sine.out',
-        onUpdate: () => {
-          c.material.color.copy(baseGray).lerp(yellow, c.userData.flash)
-        }
-      })
+      c.userData.flash = data.highlight ? 1 : 0
+      c.userData.opacity = data.highlight ? 1 : 0
+      if (c.userData.flash > 0) {
+        gsap.to(c.userData, {
+          flash: 0,
+          ease: 'sine.out',
+          onUpdate: () => {
+            c.material.color.copy(baseGray).lerp(yellow, c.userData.flash)
+          }
+        })
+      }
+      if (c.userData.opacity < 1) {
+        gsap.to(c.userData, {
+          opacity: 1,
+          ease: 'sine.out',
+          duration: 2,
+          onUpdate: () => {
+            c.material.opacity = c.userData.opacity
+          }
+        })
+      }
     }
     c.position.x = data.pos.x
     c.position.y = data.pos.y

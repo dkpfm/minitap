@@ -7,9 +7,9 @@ const audio = inject('audio')
 
 function onMessage({ data }) {
   if (data.name === 'mt-channel1-on') {
-    physics.spawn({ remove: true })
-    physics.spawn({ remove: true })
-    physics.spawn({ remove: true })
+    physics.spawn({ remove: true, highlight: true })
+    physics.spawn({ remove: true, highlight: true })
+    physics.spawn({ remove: true, highlight: true })
     audio.triggerBubble()
   }
 }
