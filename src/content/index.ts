@@ -113,7 +113,7 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
     x = innerWidth / 2 - controllerWidth / 2
     if (innerWidth < controllerWidth) x = safetyPadding
     xTarget = x
-    y = innerHeight / 2 - safetyPadding - controllerHeight / 2
+    y = innerHeight / 2 - safetyPadding - controllerHeight
     yTarget = y
 
     function tick() {
@@ -124,11 +124,11 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
         if (xTarget - innerWidth > 0) {
           xTarget = innerWidth - safetyPadding
         }
-        if (yTarget > innerHeight / 2 - safetyPadding - controllerHeight / 2) {
-          yTarget = innerHeight / 2 - safetyPadding - controllerHeight / 2
+        if (yTarget > innerHeight / 2 - safetyPadding - controllerHeight) {
+          yTarget = innerHeight / 2 - safetyPadding - controllerHeight
         }
-        if (yTarget < -innerHeight / 2 + safetyPadding + controllerHeight / 2) {
-          yTarget = -innerHeight / 2 + safetyPadding + controllerHeight / 2
+        if (yTarget < -innerHeight / 2 + safetyPadding) {
+          yTarget = -innerHeight / 2 + safetyPadding
         }
       }
       x += (xTarget - x) * 0.2

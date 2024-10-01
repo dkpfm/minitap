@@ -3,6 +3,8 @@
   display: flex;
   align-items: center;
   z-index: 9999999;
+  top: 50%;
+  left: 0;
 }
 .mt-controller-grab {
   cursor: grab;
@@ -13,6 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background: red; */
 
   &.right {
     left: auto;
