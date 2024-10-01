@@ -2,7 +2,7 @@
   "name": "chrome-ext-mv3-starter",
   "displayName": "MiniTAP",
   "description": "A fun sequencer for The Web.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "rimraf extension/dev && run-p dev:*",
