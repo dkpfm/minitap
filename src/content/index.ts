@@ -111,6 +111,7 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
 
     handles = iframeRef?.querySelectorAll('.mt-controller-grab')
     x = innerWidth / 2 - controllerWidth / 2
+    if (innerWidth < controllerWidth) x = safetyPadding
     xTarget = x
     y = innerHeight / 2 - safetyPadding - controllerHeight / 2
     yTarget = y
