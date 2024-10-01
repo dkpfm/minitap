@@ -27,6 +27,8 @@ let yMouseStart = 0
 let dragging = false
 
 function dragStart(event) {
+  event.stopPropagation()
+  event.preventDefault()
   dragging = true
   xMouseStart = event.pageX
   yMouseStart = event.pageY
@@ -38,6 +40,8 @@ function dragStart(event) {
 }
 
 function dragMove(event) {
+  event.stopPropagation()
+  event.preventDefault()
   const diffX = xMouseStart - event.pageX
   const diffY = yMouseStart - event.pageY
   xTarget = xOrigin - diffX
