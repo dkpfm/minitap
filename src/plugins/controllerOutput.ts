@@ -34,14 +34,13 @@ export default {
     let randomsState = null
     function updateRandomState() {
       randomsState = []
-
       controllerState.channels.forEach((channelData, channelIndex) => {
         randomsState[channelIndex] = createRandomSequence({
           amount: channelData.random.amount,
           seed: channelData.random.seed
         }).map((v) => ({
           time: v,
-          done: false /* this should take into account current time */
+          done: v <= controllerClock.currentTime.value % 16
         }))
       })
     }
@@ -118,10 +117,10 @@ export default {
     })
 
     const randoms = computed(() =>
-      controllerState.channels.map((c) => c.random)
+      controllerState.channels.map((c) => ({ ...c.random.amount }))
     )
     watch(
-      randoms,
+      () => randoms.value,
       () => {
         // could update only the changed channel for better perf
         updateRandomState()

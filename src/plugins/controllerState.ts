@@ -57,8 +57,8 @@ const state = {
       sequencer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
-        amount: 0,
-        seed: 0
+        amount: 8,
+        seed: 4
       }
     },
     {
@@ -73,7 +73,7 @@ const state = {
     },
     {
       name: 'Trails',
-      mode: 1,
+      mode: 2,
       sequencer: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       tapDown: false,
       random: {
