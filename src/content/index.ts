@@ -13,6 +13,8 @@ let actualIframeRef = undefined
 let styleLink = undefined
 let handles = null
 
+let controllerWidth = 1200
+let controllerHeight = 150
 let xTarget = 0
 let x = 0
 let yTarget = 0
@@ -22,8 +24,10 @@ let xOrigin = 0
 let yOrigin = 0
 let xMouseStart = 0
 let yMouseStart = 0
+let dragging = false
 
 function dragStart(event) {
+  dragging = true
   xMouseStart = event.pageX
   yMouseStart = event.pageY
   xOrigin = x
@@ -41,6 +45,7 @@ function dragMove(event) {
 }
 
 function dragEnd() {
+  dragging = false
   iframeRef.style.pointerEvents = ''
   window.removeEventListener('mousemove', dragMove)
   window.removeEventListener('mouseup', dragEnd)
@@ -102,15 +107,31 @@ onMessage('SWITCH_CONTROLLER', async function ({ data }) {
 
     actualIframeRef = iframeRef?.querySelector('iframe')
 
+    const safetyPadding = 20
+
     handles = iframeRef?.querySelectorAll('.mt-controller-grab')
-    x = -200
+    x = innerWidth / 2 - controllerWidth / 2
     xTarget = x
-    y = innerHeight / 2
-    yTarget = innerHeight / 2 - 150
+    y = innerHeight / 2 - safetyPadding - controllerHeight / 2
+    yTarget = y
 
     function tick() {
-      x += (xTarget - x) * 0.3
-      y += (yTarget - y) * 0.3
+      if (!dragging) {
+        if (xTarget + controllerWidth < 0) {
+          xTarget = -controllerWidth + safetyPadding
+        }
+        if (xTarget - innerWidth > 0) {
+          xTarget = innerWidth - safetyPadding
+        }
+        if (yTarget > innerHeight / 2 - safetyPadding - controllerHeight / 2) {
+          yTarget = innerHeight / 2 - safetyPadding - controllerHeight / 2
+        }
+        if (yTarget < -innerHeight / 2 + safetyPadding + controllerHeight / 2) {
+          yTarget = -innerHeight / 2 + safetyPadding + controllerHeight / 2
+        }
+      }
+      x += (xTarget - x) * 0.2
+      y += (yTarget - y) * 0.2
       iframeRef.style.transform = `translate(${x}px, ${y}px)`
       requestAnimationFrame(tick)
     }
