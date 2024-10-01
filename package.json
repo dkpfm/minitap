@@ -1,7 +1,7 @@
 {
   "name": "chrome-ext-mv3-starter",
   "displayName": "MiniTAP",
-  "description": "A fun sequencer for The Web that runs as a browser extension.",
+  "description": "A fun sequencer for The Web.",
   "version": "0.0.1",
   "private": true,
   "scripts": {
