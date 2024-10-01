@@ -1,6 +1,10 @@
 <template>
   <div class="channel-tap">
-    <div :class="{ key: true, down: isDown }">
+    <div
+      :class="{ key: true, down: isDown }"
+      @mousedown="handleMouseDown"
+      @mouseup="handleMouseUp"
+    >
       <div class="key-top">{{ props.letter }}</div>
       <div class="fx">
         <TapFx />
@@ -24,8 +28,13 @@ const isDown = computed(
   () => controllerState.channels[props.channelIndex].tapDown
 )
 
-// // const beats = ref([1, 0, 0, 0, 0, 0, 0, 0])
-// const rows = computed(() => _.chunk(props.beats, 4))
+function handleMouseDown() {
+  controllerState.channels[props.channelIndex].tapDown = true
+}
+
+function handleMouseUp() {
+  controllerState.channels[props.channelIndex].tapDown = false
+}
 </script>
 
 <style lang="scss" scoped>

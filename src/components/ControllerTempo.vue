@@ -10,7 +10,7 @@
     </div>
     <div class="flex-fill"></div>
     <div class="beat">{{ controllerClock.barBeat.value + 1 }}/4</div>
-    <button class="circle-button">
+    <button class="circle-button" @click="handleTap">
       <div class="circle">TAP</div>
     </button>
   </div>
@@ -18,10 +18,16 @@
 
 <script setup>
 import { computed, inject } from 'vue'
+import BpmGuesser from './../utils/bpmGuesser'
 
 import IconMetronome from './icon/Metronome.vue'
 
 const controllerClock = inject('controllerClock')
+
+function handleTap() {
+  const bpm = BpmGuesser.guess()
+  if (bpm) controllerClock.bpm.value = bpm
+}
 </script>
 
 <style lang="scss" scoped>
