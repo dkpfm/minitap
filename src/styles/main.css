@@ -16,6 +16,7 @@ body,
     hover:bg-white
     disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50;
 }
+
 button:focus {
   outline: 0;
 }

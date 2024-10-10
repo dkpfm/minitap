@@ -1,11 +1,11 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Icons from 'unplugin-icons/vite'
+// import Icons from 'unplugin-icons/vite'
 // import IconsResolver from 'unplugin-icons/resolver'
 // import Components from 'unplugin-vue-components/vite'
 import WindiCSS from 'vite-plugin-windicss'
-import VueI18n from '@intlify/vite-plugin-vue-i18n'
+// import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import windiConfig from './windi.config'
 
 const port = parseInt(process.env.PORT || '') || 3309
@@ -65,9 +65,9 @@ export default defineConfig(({ command }) => {
       }),
 
       // https://github.com/intlify/vite-plugin-vue-i18n
-      VueI18n({
-        include: [resolve(__dirname, 'src/locales/**')]
-      }),
+      // VueI18n({
+      //   include: [resolve(__dirname, 'src/locales/**')]
+      // }),
 
       // rewrite assets to use relative path
       {

@@ -1,5 +1,6 @@
 <template>
   <main class="popup">
+    <div class="version">v{{ version }}</div>
     <img src="/assets/logo.svg" class="logo" />
     <button class="switch" @click="handleSwitchClick">
       <div class="icon">
@@ -7,6 +8,8 @@
       </div>
       <div class="label">{{ isOn ? 'Stop' : 'Start' }}</div>
     </button>
+
+    <!-- <div class="alert" v-if="false">New Version!</div> -->
 
     <!-- <button class="btn mt-2" @click="openOptionsPage">
       {{ $t('popup.open_options') }}
@@ -20,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import pkg from '~/../package.json'
+
 import IconPower from '~/components/icon/Power.vue'
 // import { storageDemo } from '~/logic/storage'
 
@@ -28,6 +33,8 @@ import { sendMessage } from 'webext-bridge/popup'
 
 const isOn = ref(false)
 
+const version = pkg.version
+
 onMounted(async () => {
   let tabs = await browser.tabs.query({
     active: true,
@@ -35,9 +42,22 @@ onMounted(async () => {
   })
   const data = await sendMessage(
     'REQUEST_CONTROLLER_STATUS',
-    {},
-    'content-script@' + tabs[0].id
+    { tabId: tabs[0].id },
+    'background'
   )
+
+  // const res = await sendMessage(
+  //   'SWITCH_CONTROLLER',
+  //   data,
+  //   'content-script@' + tabs[0].id
+  // )
+  // console.log(res)
+
+  // const data = await sendMessage(
+  //   'REQUEST_CONTROLLER_STATUS',
+  //   {},
+  //   'content-script@' + tabs[0].id
+  // )
   isOn.value = data.isOn
 })
 
@@ -49,9 +69,10 @@ async function handleSwitchClick() {
 
   const data = await sendMessage(
     'SWITCH_CONTROLLER',
-    {},
-    'content-script@' + tabs[0].id
+    { tabId: tabs[0].id },
+    'background'
   )
+
   // console.log(data)
   isOn.value = data.isOn
   window.close()
@@ -71,6 +92,12 @@ async function handleSwitchClick() {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+.version {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 .logo {
   width: calc(100% - 80px);
@@ -127,5 +154,8 @@ async function handleSwitchClick() {
       background: rgba(#3b84e3, 0.4);
     }
   }
+}
+.alert {
+  color: white;
 }
 </style>
