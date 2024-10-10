@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, inject, defineProps } from 'vue'
 import ThreeCanvas from './components/ThreeCanvas.vue'
 
-const props = ['active']
+const props = defineProps({ active: { default: true } })
 
 const physics = inject('physics')
 const audio = inject('audio')
