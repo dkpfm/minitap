@@ -38,10 +38,12 @@ export default {
         randomsState[channelIndex] = createRandomSequence({
           amount: channelData.random.amount,
           seed: channelData.random.seed
-        }).map((v) => ({
-          time: v,
-          done: v <= controllerClock.currentTime.value % 16
-        }))
+        }).map((v) => {
+          return {
+            time: v,
+            done: v <= controllerClock.currentTime.value % 16
+          }
+        })
       })
     }
     controllerClock.listenOnSequence(() => {
@@ -123,7 +125,9 @@ export default {
       () => randoms.value,
       () => {
         // could update only the changed channel for better perf
-        updateRandomState()
+        setTimeout(() => {
+          updateRandomState()
+        })
       },
       { immediate: true }
     )

@@ -23,8 +23,8 @@
         type="text"
         :value="channelData.name"
         placeholder="Name"
-        @keydown.stop=""
-        @keyup.stop=""
+        @keydown="stopPropagation"
+        @keyup="stopPropagation"
       />
     </div>
     <div class="flex-fill"></div>
@@ -51,6 +51,10 @@ const props = defineProps(['options', 'index', 'state'])
 
 const controllerState = inject('controllerState')
 const channelData = computed(() => controllerState.channels[props.index])
+
+function stopPropagation(event) {
+  event.stopPropagation()
+}
 </script>
 
 <style lang="scss" scoped>
